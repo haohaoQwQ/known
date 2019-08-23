@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--用第三种方式的时候这里的namespace需要对应到具体的接口实现类-->
+<mapper namespace="mapper.UserMapper">
+    <select id="getUserById" resultType="User">
+        select * from user where id=#{id}
+    </select>
+
+    <select id="getUsers" resultType="User">
+        select * from user
+    </select>
+
+    <delete id="deleteUserById">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUser" parameterType="user">
+        update user
+        <set>
+        <if test="username!=null">
+            username=#{username},
+        </if>
+        <if test="password!=null">
+            password=#{password},
+        </if>
+        <if test="age!=null">
+            age=#{age},
+        </if>
+        <if test="email!=null">
+            email=#{email},
+        </if>
+        <if test="phone!=null">
+            phone=#{phone}
+        </if>
+        </set>
+        where username=#{username}
+    </update>
+
+    <insert id="saveUser">
+        insert into user(username,password,study_direction,sex,email,phone) values(#{username},#{password},#{studyDirection},#{sex},#{email},#{phone})
+    </insert>
+
+    <select id="loginUser" parameterType="user" resultType="Integer">
+        select count(*) from user where username=#{username} and password=#{password}
+    </select>
+
+    <select id="findUserInfoByUsername" resultType="user">
+        select username,sex,age,address,avatar,study_direction,phone,email,motto,account from user where username=#{username}
+    </select>
+
+    <update id="updateAvatar" parameterType="user">
+        update user set avatar=#{avatar} where username=#{username}
+    </update>
+</mapper>

@@ -29,7 +29,7 @@
     <!--dao层对象注入-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--mapper注册-->
-        <property name="basePackage" value="dao"/>
+        <property name="basePackage" value="mapper"/>
     </bean>
 
 </beans>

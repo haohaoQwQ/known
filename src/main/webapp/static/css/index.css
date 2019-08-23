@@ -1,3 +1,8 @@
+/*课程图片span样式*/
+.courses-date span{
+    margin-left:5px;
+}
+
 .btn-success {
     background-color: #29CA8E;
 }

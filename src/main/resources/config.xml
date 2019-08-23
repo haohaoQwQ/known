@@ -4,10 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <!--使用前提：数据库表设计按照规范“字段名中各单词使用下划线"_"划分”；
+        使用好处：省去mapper.xml文件中繁琐编写表字段列表与表实体类属性的映射关系，即resultMap-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
     <!--引入pageHelper分页插件，注意plugin标签位置-->
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor">
-
             <!-- 该参数默认为false -->
             <!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
             <!-- 和startPage中的pageNum效果一样-->

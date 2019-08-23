@@ -3,10 +3,6 @@ package util;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author yyh
- * @date 2019/8/12-22:28
- */
 public class Msg {
     //状态码   100-成功    200-失败
     private int code;

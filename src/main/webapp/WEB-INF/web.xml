@@ -5,16 +5,12 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-
     <display-name>Archetype Created Web Application</display-name>
-
-
     <!--  读取spring的配置文件-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext-*.xml</param-value>
     </context-param>
-
 
     <!-- 启动 IOC 容器的 ServletContextListener -->
     <!--监听器，监听器和上面spring配置文件读取一起的，用来监听上下文来找到spring的配置文件-->
@@ -71,4 +67,5 @@
         <servlet-name>springmvc</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
 </web-app>

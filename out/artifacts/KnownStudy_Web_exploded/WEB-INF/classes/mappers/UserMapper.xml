@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--用第三种方式的时候这里的namespace需要对应到具体的接口实现类-->
+<mapper namespace="mapper.UserMapper">
+    <select id="getUserById" resultType="com.entity.User">
+        select * from user where id=#{id}
+    </select>
+
+    <select id="getUsers" resultType="com.entity.User">
+        select * from user
+    </select>
+
+    <delete id="deleteUserById">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUser">
+        update user set username=#{username},password=#{password} where id=#{id}
+    </update>
+
+    <insert id="saveUser">
+        insert into user(username,password,study_direction,sex,email,phone) values(#{username},#{password},#{study_direction},#{sex},#{email},#{phone})
+    </insert>
+
+</mapper>

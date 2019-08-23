@@ -9,24 +9,20 @@
     <link rel="stylesheet" th:href="@{/static/css/owl.theme.default.min.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/index.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/templatemo-style.css}"/>
-    <title>迭代器示例</title>
+    <title>index</title>
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
 <!-- PRE LOADER -->
 <section class="preloader">
     <div class="spinner">
-
         <span class="spinner-rotate"></span>
-
     </div>
 </section>
-
 
 <!-- MENU -->
 <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
     <div class="container">
-
         <div class="navbar-header">
             <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon icon-bar"></span>
@@ -35,7 +31,7 @@
             </button>
 
             <!-- lOGO TEXT HERE -->
-            <a href="#" class="navbar-brand"><img th:src="@{/static/images/png/logoko.png}" width="80px" alt=""></a>
+            <a th:href="@{/}" class="navbar-brand"><img th:src="@{/static/images/png/logoko.png}" width="80px" alt=""></a>
         </div>
 
         <!-- MENU LINKS -->
@@ -50,22 +46,11 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right information">
-                <li class="loginAndReg">
-                    <!--                    <button class="btn btn-success marginTop btn-lg" data-toggle="modal" data-target="#login">注册/登录-->
-                    <!--                    </button>-->
+                <li class="loginAndReg" th:if="${session.user}==null">
+                    <button class="btn btn-success marginTop btn-lg" data-toggle="modal" data-target="#registerLogin">注册/登录</button>
                 </li>
-                <!--                <li class="informationDisplay">-->
-                <!--                    <img src="images/author-image3.jpg" class="img-circle avatar" width="60px">-->
-                <!--                    <ul>-->
-                <!--                        <li>用户名:爱丽丝</li>-->
-                <!--                        <li>经验值：1000</li>-->
-                <!--                        <li>年龄：18</li>-->
-                <!--                    </ul>-->
-                <!--                </li>-->
-                <!--                <li class="exit">退出</li>-->
             </ul>
         </div>
-
     </div>
 </section>
 
@@ -73,7 +58,6 @@
 <!-- HOME -->
 <section id="home">
     <div class="row">
-
         <div class="owl-carousel owl-theme home-slider">
             <div class="item item-first">
                 <div class="caption">
@@ -159,7 +143,6 @@
 <section id="about">
     <div class="container">
         <div class="row">
-
             <div class="col-md-6 col-sm-12">
                 <div class="about-info">
                     <h2>Start your journey to a better life with online practical courses</h2>
@@ -193,13 +176,31 @@
             <div class="col-md-offset-1 col-md-4 col-sm-12">
                 <div class="entry-form">
                     <h2>Information</h2>
-                    <div class="text-center"><img th:src="@{/static/images/author-image3.jpg}" class="img-circle avatar"
-                                                  width="60px"></div>
-                    <input type="text" name="full name" class="form-control" placeholder="Full name" required=""
-                           readonly>
-
-                    <input type="email" name="email" class="form-control" placeholder="Your email address"
-                           required="" readonly>
+                    <div class="text-center" th:if="${session.user!=null}">
+                        <!--                        <img th:src="@{/static/images/author-image3.jpg}" class="img-circle avatar"-->
+                        <!--                                                  width="60px">-->
+                        <img th:src="|/pic/avatar/${session.user.avatar}|" alt="" width="60px"
+                             class="img-circle avatar"
+                             id="avatar">
+                    </div>
+                    <div th:if="${session.user!=null}">
+                        <input id="fullName" type="text" name="full_name" class="form-control"
+                               placeholder="Full name"
+                               required=""
+                               readonly th:value="${session.user.username}">
+                        <input id="user_email" type="email" name="email" class="form-control"
+                               placeholder="Your email"
+                               required="" readonly th:value="${session.user.email}">
+                    </div>
+                    <div th:if="${session.user==null}">
+                        <input type="text" name="full_name" class="form-control"
+                               placeholder="Full name"
+                               required=""
+                               readonly="readonly">
+                        <input type="email" name="email" class="form-control"
+                               placeholder="Your email"
+                               required="" readonly>
+                    </div>
                     <button class="submit-btn form-control" id="form-submit-info">go info</button>
                 </div>
             </div>
@@ -212,7 +213,6 @@
 <section id="team">
     <div class="container">
         <div class="row">
-
             <div class="col-md-12 col-sm-12">
                 <div class="section-title">
                     <h2>Teachers
@@ -220,15 +220,15 @@
                     </h2>
                 </div>
             </div>
-
-            <div class="col-md-3 col-sm-6">
+            <tr th:each="teacher:${teacherlist}">
+                <div class="col-md-3 col-sm-6">
                 <div class="team-thumb">
                     <div class="team-image">
-                        <img th:src="@{/static/images/author-image1.jpg}" class="img-responsive" alt="">
+                        <img th:src="|/pic/${teacher.avatar}|" class="img-responsive" alt="">
                     </div>
                     <div class="team-info">
-                        <h3>Mark Wilson</h3>
-                        <span>I love Teaching</span>
+                        <h3 th:text="${teacher.tname}">Mark Wilson</h3>
+                        <span th:text="${teacher.introduction}">I love Teaching</span>
                     </div>
                     <ul class="social-icon">
                         <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
@@ -236,57 +236,8 @@
                         <li><a href="#" class="fa fa-instagram"></a></li>
                     </ul>
                 </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="team-thumb">
-                    <div class="team-image">
-                        <img th:src="@{/static/images/author-image2.jpg}" class="img-responsive" alt="">
-                    </div>
-                    <div class="team-info">
-                        <h3>Catherine</h3>
-                        <span>Education is the key!</span>
-                    </div>
-                    <ul class="social-icon">
-                        <li><a href="#" class="fa fa-google"></a></li>
-                        <li><a href="#" class="fa fa-instagram"></a></li>
-                    </ul>
                 </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="team-thumb">
-                    <div class="team-image">
-                        <img th:src="@{/static/images/author-image3.jpg}"  class="img-responsive" alt="">
-                    </div>
-                    <div class="team-info">
-                        <h3>Jessie Ca</h3>
-                        <span>I like Online Courses</span>
-                    </div>
-                    <ul class="social-icon">
-                        <li><a href="#" class="fa fa-twitter"></a></li>
-                        <li><a href="#" class="fa fa-envelope-o"></a></li>
-                        <li><a href="#" class="fa fa-linkedin"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="team-thumb">
-                    <div class="team-image">
-                        <img th:src="@{/static/images/author-image4.jpg}" class="img-responsive" alt="">
-                    </div>
-                    <div class="team-info">
-                        <h3>Andrew Berti</h3>
-                        <span>Learning is fun</span>
-                    </div>
-                    <ul class="social-icon">
-                        <li><a href="#" class="fa fa-twitter"></a></li>
-                        <li><a href="#" class="fa fa-google"></a></li>
-                        <li><a href="#" class="fa fa-behance"></a></li>
-                    </ul>
-                </div>
-            </div>
+            </tr>
 
         </div>
     </div>
@@ -299,167 +250,43 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="section-title">
-                    <button id="AllCourses"><span>全部课程</span></button>
+                    <a th:href="@{/allcourses}"><button id="AllCourses"><span>全部课程</span></button></a>
                     <h2>Popular Courses
                         <small>Upgrade your skills with newest courses</small>
                     </h2>
                 </div>
-
                 <div class="owl-carousel owl-theme owl-courses">
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img th:src="@{/static/images/courses-image1.jpg}" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 12 / 7 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 7 Hours</span>
-                                    </div>
-                                </div>
 
-                                <div class="courses-detail">
-                                    <h3><a href="#">Social Media Management</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img th:src="@{/static/images/author-image1.jpg}" class="img-responsive" alt="">
-                                        <span>Mark Wilson</span>
+                    <tr th:each="course:${courselist}">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="item">
+                                <div class="courses-thumb">
+                                    <div class="courses-top">
+                                        <div class="courses-image">
+                                            <img th:src="|/pic/course/${course.pic}|" class="img-responsive" alt="">
+                                        </div>
+                                        <div class="courses-date">
+                                            <span><i class="fa fa-calendar"><span th:text="${course.startTime}">20/7/2018</span></i></span>
+                                            <span><i class="fa fa-clock-o"><span th:text="|${course.time} Hours|"> 4.5 Hours</span></i></span>
+                                        </div>
                                     </div>
-                                    <div class="courses-price">
-                                        <a href="#"><span>USD 25</span></a>
+                                    <div class="courses-detail">
+                                        <h3 th:text="${course.cname}"><a href="#">Graphic & Web Design</a></h3>
+                                        <p th:text="${course.introduction}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>
+                                    <div class="courses-info">
+                                        <div class="courses-author">
+                                            <img th:src="|/pic/${course.teacher.avatar}|" class="img-responsive" alt="">
+                                            <span th:text="${course.teacher.tname}">Jessica</span>
+                                        </div>
+                                        <div class="courses-price">
+                                            <a href="#"><span th:text="￥+${course.price}">￥ 80</span></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img th:src="@{/static/images/courses-image2.jpg}" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 20 / 7 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 4.5 Hours</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Graphic & Web Design</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img th:src="@{/static/images/author-image2.jpg}" class="img-responsive" alt="">
-                                        <span>Jessica</span>
-                                    </div>
-                                    <div class="courses-price">
-                                        <a href="#"><span>USD 80</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img th:src="@{/static/images/courses-image3.jpg}" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 15 / 8 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 6 Hours</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Marketing Communication</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img th:src="@{/static/images/author-image3.jpg}" class="img-responsive" alt="">
-                                        <span>Catherine</span>
-                                    </div>
-                                    <div class="courses-price free">
-                                        <a href="#"><span>Free</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img th:src="@{/static/images/courses-image4.jpg}" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 10 / 8 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 8 Hours</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Summer Kids</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img th:src="@{/static/images/author-image1.jpg}" class="img-responsive" alt="">
-                                        <span>Mark Wilson</span>
-                                    </div>
-                                    <div class="courses-price">
-                                        <a href="#"><span>USD 45</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img th:src="@{/static/images/courses-image5.jpg}" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 5 / 10 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 10 Hours</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Business &amp; Management</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img th:src="@{/static/images/author-image2.jpg}" class="img-responsive" alt="">
-                                        <span>Jessica</span>
-                                    </div>
-                                    <div class="courses-price free">
-                                        <a href="#"><span>Free</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </tr>
 
                 </div>
             </div>
@@ -472,14 +299,12 @@
 <section id="testimonial">
     <div class="container">
         <div class="row">
-
             <div class="col-md-12 col-sm-12">
                 <div class="section-title">
                     <h2>Student Reviews
                         <small>from around the world</small>
                     </h2>
                 </div>
-
                 <div class="owl-carousel owl-theme owl-client">
                     <div class="col-md-4 col-sm-4">
                         <div class="item">
@@ -501,7 +326,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-4 col-sm-4">
                         <div class="item">
                             <div class="tst-image">
@@ -520,7 +344,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-4 col-sm-4">
                         <div class="item">
                             <div class="tst-image">
@@ -540,7 +363,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-4 col-sm-4">
                         <div class="item">
                             <div class="tst-image">
@@ -571,7 +393,6 @@
 <section id="contact">
     <div class="container">
         <div class="row">
-
             <div class="col-md-6 col-sm-12">
                 <form id="contact-form" role="form" action="mailto:1045112166@qq.com" method="post">
                     <div class="section-title">
@@ -579,24 +400,19 @@
                             <small>we love conversations. let us talk!</small>
                         </h2>
                     </div>
-
                     <div class="col-md-12 col-sm-12">
                         <input type="text" class="form-control" placeholder="Enter full name" name="name" required="">
 
                         <input type="email" class="form-control" placeholder="Enter email address" name="email"
                                required="">
-
                         <textarea class="form-control" rows="6" placeholder="Tell us about your message" name="message"
                                   required></textarea>
                     </div>
-
                     <div class="col-md-4 col-sm-12">
                         <input type="submit" class="form-control" name="send message" value="Send Message">
                     </div>
-
                 </form>
             </div>
-
             <div class="col-md-6 col-sm-12">
                 <div class="contact-image">
                     <img th:src="@{/static/images/contact-image.jpg}" class="img-responsive" alt="Smiling Two Girls">
@@ -607,8 +423,8 @@
 </section>
 
 
-<!-- 注册登录模块框 -->
-<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- 注册登录模态框 -->
+<div class="modal fade" id="registerLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -618,84 +434,91 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#room" aria-controls="login" role="tab" data-toggle="tab">登录</a>
+                                <a href="#userLoginModel" aria-controls="login" role="tab" data-toggle="tab">登录</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab" aria-controls="register" role="tab" data-toggle="tab">注册</a>
+                                <a href="#userRegisterModel" aria-controls="register" role="tab" data-toggle="tab">注册</a>
                             </li>
                         </ul>
                     </div>
                 </h4>
             </div>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="room">
+
+                <div role="tabpanel" class="tab-pane active" id="userLoginModel">
+                    <form class="form-horizontal" id="user_form" th:action="@{/login}" type="post">
                     <div class="modal-body">
-                        <form class="form-horizontal" id="user_form">
                             <div class="form-group">
                                 <label for="new_loginName" class="col-sm-2 control-label">账号</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="new_loginName" placeholder="账号"
-                                           name="loginName">
+                                           name="username">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="new_loginPwd" class="col-sm-2 control-label">密码</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="new_loginPwd" placeholder="密码"
-                                           name="loginPwd">
+                                    <input type="password" class="form-control" id="new_loginPwd" placeholder="密码"
+                                           name="password">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="login_code" class="col-sm-2 control-label">验证码</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" id="login_code" placeholder="验证码"
-                                           name="code">
+                                           name="checkCode">
                                 </div>
                                 <div class="col-sm-6 code" style="float: right">
-                                    <img th:src="@{/static/images/ia_10281.jpg}" onclick="changeCode()"/><a
-                                        href="javascript:changeCode()">看不清换一张</a><br>
+                                    <a href="javascript:reloadCode()">
+                                        <img alt="验证码" id="imagecode" th:src="@{/ImageServlet}"></a>
+                                    <a href="javascript:reloadCode()">看不清换一张</a><br>
                                 </div>
                             </div>
-                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-success" onclick="loginUser()">登录</button>
+                        <button type="submit" class="btn btn-success">登录</button>
                     </div>
+                    </form>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="tab">
+
+                <div role="tabpanel" class="tab-pane" id="userRegisterModel">
                     <div class="modal-body">
                         <form class="form-horizontal" id="register_user_form">
                             <div class="form-group">
                                 <label for="register_loginName" class="col-sm-2 control-label">账号</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="register_loginName" placeholder="账号"
-                                           name="loginName">
+                                           name="username">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="register_loginPwd" class="col-sm-2 control-label">密码</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="register_loginPwd" placeholder="密码"
-                                           name="loginPwd">
+                                    <input type="password" class="form-control" id="register_loginPwd" placeholder="密码"
+                                           name="password">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="register_email" class="col-sm-2 control-label">方向</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control">
-                                        <option>移动开发</option>
-                                        <option>软件开发</option>
-                                        <option>网络工程</option>
-                                        <option>软件测试</option>
+                                    <select class="form-control" name="studyDirection">
+                                        <option value="IT">IT</option>
+                                        <option value="音乐">音乐</option>
+                                        <option value="篮球">篮球</option>
+                                        <option value="学龄教育">学龄教育</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="register_gender" class="col-sm-2 control-label">性别</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="register_gender" placeholder="性别"
-                                           name="gender">
+                                <label for="optionsRadios3" class="col-sm-2 control-label">性别</label>
+                                <div class="col-sm-2">
+                                    <input type="radio" name="sex" id="optionsRadios3" value="男"
+                                           checked> <label for="optionsRadios3" class="control-label">男</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="radio" name="sex" id="optionsRadios4" value="女"
+                                           checked> <label for="optionsRadios4" class="control-label">女</label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -709,34 +532,26 @@
                                 <label for="register_telephone" class="col-sm-2 control-label">电话</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="register_telephone" placeholder="电话"
-                                           name="telephone">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="register_QQ" class="col-sm-2 control-label">QQ</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="register_QQ" placeholder="QQ账号"
-                                           name="QQ">
+                                           name="phone">
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-success" onclick="registerUser()">注册</button>
+                        <button type="button" class="btn btn-success" id="register_btn">注册</button>
                     </div>
                 </div>
+
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
 
-
 <!-- FOOTER -->
 <footer id="footer">
     <div class="container">
         <div class="row">
-
             <div class="col-md-4 col-sm-6">
                 <div class="footer-info">
                     <div class="section-title">
@@ -745,20 +560,17 @@
                     <address>
                         <p>1800 dapibus a tortor pretium,<br> Integer nisl dui, ABC 12000</p>
                     </address>
-
                     <ul class="social-icon">
                         <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
                         <li><a href="#" class="fa fa-twitter"></a></li>
                         <li><a href="#" class="fa fa-instagram"></a></li>
                     </ul>
-
                     <div class="copyright-text">
                         <p>Copyright &copy; 2018.Company name All rights reserved.
                         </p>
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4 col-sm-6">
                 <div class="footer-info">
                     <div class="section-title">
@@ -768,7 +580,6 @@
                         <p>+65 2244 1100, +66 1800 1100</p>
                         <p><a href="mailto:youremail.com">hello@youremail.co</a></p>
                     </address>
-
                     <div class="footer_menu">
                         <h2>Quick Links</h2>
                         <ul>
@@ -780,7 +591,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4 col-sm-12">
                 <div class="footer-info newsletter-form">
                     <div class="section-title">
@@ -799,19 +609,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </footer>
-
-
-<!-- SCRIPTS -->
-<!--<script src="js/jquery.js"></script>-->
-<!--<script src="js/bootstrap.min.js"></script>-->
-<!--<script src="js/owl.carousel.min.js"></script>-->
-<!--<script src="js/smoothscroll.js"></script>-->
-<!--<script src="js/custom.js"></script>-->
-<!--<script src="js/index.js"></script>-->
 
 <script type="text/javascript" th:src="@{/static/js/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
@@ -819,6 +619,32 @@
 <script type="text/javascript" th:src="@{/static/js/smoothscroll.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/custom.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+
+<script th:inline="javascript">
+    $(function () {
+        var user = [[${session.user}]];
+        if (user != null) {
+            // $("#user_email").val(user.email);
+            // $("#fullName").val(user.username);
+           /* $("#avatar").attr("src", "/pic/avatar/" + user.avatar);*/
+            $("#form-submit-info").attr("name", user.id);
+        }else {
+            alert("登录失败，请重新登录!");
+        }
+    });
+
+    //go info 去个人信息页面前先判断
+    $(function () {
+        var user = [[${session.user}]];
+        $(".submit-btn").click(function () {
+            if (user == null) {
+                alert("您还未登录，请先登录！");
+            }else {
+                window.location.href=getRootPath()+"info";
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
