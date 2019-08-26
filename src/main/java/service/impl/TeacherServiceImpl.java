@@ -20,4 +20,14 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> findTeacherByStatus() {
         return teacherMapper.findTeacherByStatus();
     }
+
+    @Override
+    public Teacher findTeacherById(Integer id) {
+        return teacherMapper.findTeacherById(id);
+    }
+
+    @Override
+    public int countUsersByTid(Integer tid) {
+        return teacherMapper.countUsersByTid(tid);
+    }
 }

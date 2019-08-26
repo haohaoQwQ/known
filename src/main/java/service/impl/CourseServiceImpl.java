@@ -41,4 +41,14 @@ public class CourseServiceImpl implements CourseService {
         }
         return courses;
     }
+
+    @Override
+    public List<Course> findCoursesByTid(Integer tid) {
+        return courseMapper.findCoursesByTid(tid);
+    }
+
+    @Override
+    public int countCoursesByTid(Integer tid) {
+        return courseMapper.countCoursesByTid(tid);
+    }
 }

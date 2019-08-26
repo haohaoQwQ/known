@@ -11,4 +11,6 @@ public interface TeacherMapper {
     List<Teacher> findTeacherByStatus();
     //根据id查询老师
     Teacher findTeacherById(Integer id);
+    //查询老师的粉丝数
+    int countUsersByTid(Integer tid);
 }

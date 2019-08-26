@@ -4,6 +4,7 @@ import entity.Course;
 import entity.Teacher;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import service.TeacherService;
 import service.UserService;
 import util.Msg;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -30,11 +32,11 @@ public class UserController {
     CourseService courseService;
 
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(HttpSession session){
         List<Teacher> teachers=teacherService.findTeacherByStatus();
         List<Course> courses=courseService.findCourseByStatus();
-        model.addAttribute("teacherlist",teachers);
-        model.addAttribute("courselist",courses);
+        session.setAttribute("teacherlist", teachers);
+        session.setAttribute("courselist",courses);
         return "index";
     }
 
@@ -49,17 +51,24 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public String login(User user, String checkCode,HttpSession session){
-        if(userService.loginUser(user,checkCode,session)){
-            User user1=userService.findUserInfoByUsername(user.getUsername());
-            session.setAttribute("user", user1);
-            System.out.println("登录成功");
-            return "index";
+    public String login(User user, String checkCode, HttpSession session, HttpServletRequest request){
+        if(userService.loginUser(user)){
+           if(userService.checkCode(session, checkCode)){
+               User user1=userService.findUserInfoByUsername(user.getUsername());
+               session.setAttribute("user", user1);
+               System.out.println("登录成功");
+               return "index";
+           }else {
+               request.setAttribute("msg", "验证码输入有误！");
+               return "index";
+           }
         }else {
+            request.setAttribute("msg","用户名或密码错误!");
             System.out.println("登录失败");
             return "index";
         }
     }
+
     @RequestMapping("/exitLogin")
     public String exitLogin(HttpSession session){
         session.removeAttribute("user");
@@ -68,14 +77,19 @@ public class UserController {
     }
 
     @RequestMapping("/allcourses")
-    public String allCoureses(Model model){
+    public String allCoureses(HttpSession session){
         List<Course> courses=courseService.findAllCourses();
-        model.addAttribute("courselist",courses);
+        session.setAttribute("courselist", courses);
         return "course";
     }
 
     @RequestMapping("/info")
-    public String info(){
+    public String info(HttpSession session){
+        User user= (User) session.getAttribute("user");
+        List<Course> courses=userService.selectMyCourses(user.getId());
+        List<Course> courses1=userService.selectMyCollects(user.getId());
+        session.setAttribute("mycourses", courses);
+        session.setAttribute("mycollects", courses1);
         return "info";
     }
 
@@ -88,7 +102,26 @@ public class UserController {
             System.out.println("修改用户信息失败！");
             return "info";
         }
+    }
 
+    @RequestMapping("/teacherinfo")
+    public String teacherinfo(Integer tid,HttpSession session){
+        Teacher teacher=teacherService.findTeacherById(tid);
+        session.setAttribute("teacher", teacher);
+        List<Course> courses=courseService.findCoursesByTid(teacher.getId());
+        session.setAttribute("teachercourses", courses);
+        int coursetotal=courseService.countCoursesByTid(teacher.getId());
+        session.setAttribute("coursetotal", coursetotal);
+        int teacherfans=teacherService.countUsersByTid(teacher.getId());
+        session.setAttribute("teacherfans", teacherfans);
+        return "teacherInfo";
+    }
+
+    @RequestMapping("/focusTeacher")
+    public String focusTeacher(HttpSession session){
+        User user= (User) session.getAttribute("user");
+        Teacher teacher= (Teacher) session.getAttribute("teacher");
+        return "teacherinfo";
     }
 
 }

@@ -1,5 +1,6 @@
 package service;
 
+import entity.Course;
 import entity.User;
 
 import javax.servlet.http.HttpSession;
@@ -20,11 +21,18 @@ public interface UserService {
 
     int saveUser(User user);
 
-    boolean loginUser(User user, String checkCode, HttpSession session);
+    boolean loginUser(User user);
+
+    boolean checkCode(HttpSession session,String checkCode);
 
     //通过用户名查询除密码之外的信息
     User findUserInfoByUsername(String username);
 
     //修改头像
     int updateAvatar(User user);
+
+    //查询我的课程
+    List<Course> selectMyCourses(Integer id);
+    //查询我的收藏
+    List<Course> selectMyCollects(Integer id);
 }

@@ -19,7 +19,7 @@
 
 <body>
 <!-- MENU -->
-<section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+<section class="navbar custom-navbar navbar-fixed-top" role="navigation" style="height: 75px">
     <div class="container">
 
         <div class="navbar-header">
@@ -35,13 +35,13 @@
         </div>
 
         <!-- MENU LINKS -->
-        <div class="collapse navbar-collapse">
+  <!--      <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="info.html"><img th:src="@{/static/images/author-image3.jpg}" class="img-circle avatar"
-                                             width="38px"></a>
+                <li><a th:href="@{/info}"><img th:src="|/pic/avatar/${session.user.avatar}|"
+                                               class="img-circle avatar" width="55px" height="55px"></a>
                 </li>
             </ul>
-        </div>
+        </div>-->
 
     </div>
 </section>
@@ -60,10 +60,10 @@
                         <li class="level">内容分类:</li>
                         <li class="level">
                             <span class="label-active">全部</span></li>
-                        <li class="level"><span>数据库</span></li>
-                        <li class="level"><span>外语考试</span></li>
-                        <li class="level"><span>公务员</span></li>
-                        <li class="level"><span>移动开发</span></li>
+                        <li class="level"><span>IT</span></li>
+                        <li class="level"><span>音乐</span></li>
+                        <li class="level"><span>篮球</span></li>
+                        <li class="level"><span>学龄教育</span></li>
                     </ul>
                 </td>
             </tr>
@@ -72,10 +72,10 @@
                     <ul class="nav nav-pills">
                         <li class="level">讲师分类:</li>
                         <li class="level"><span class="label-active">全部</span></li>
-                        <li class="level"><span>刘梦昊</span></li>
-                        <li class="level"><span>刘梦昊</span></li>
-                        <li class="level"><span>刘梦昊</span></li>
-                        <li class="level"><span>刘梦昊</span></li>
+                        <li class="level"><span>Mike</span></li>
+                        <li class="level"><span>Mary</span></li>
+                        <li class="level"><span>Peter</span></li>
+                        <li class="level"><span>Jeet</span></li>
 
                     </ul>
                 </td>
@@ -94,7 +94,7 @@
         </table>
     </div>
 
-    <tr th:each="course:${courselist}">
+    <tr th:each="course:${session.courselist}">
     <div class="col-md-4 col-sm-4">
         <div class="item">
             <div class="courses-thumb">

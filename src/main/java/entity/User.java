@@ -4,6 +4,7 @@ package entity;
  * @author 刘梦昊 2019/8/21 9:31
  */
 public class User {
+    private Integer id;
     private String username;
     private String password;
     private String sex;
@@ -30,6 +31,14 @@ public class User {
                 ", email='" + email + '\'' +
                 ", motto='" + motto + '\'' +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getAccount() {

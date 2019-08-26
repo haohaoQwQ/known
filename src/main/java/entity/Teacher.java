@@ -4,6 +4,7 @@ package entity;
  * @author 刘梦昊 2019/8/22 11:20
  */
 public class Teacher {
+    private Integer id;
     private String tname;
     private String major;
     private String introduction;
@@ -19,6 +20,14 @@ public class Teacher {
                 ", teacherStatus=" + teacherStatus +
                 ", avatar='" + avatar + '\'' +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTname() {

@@ -49,6 +49,12 @@
                 <li class="loginAndReg" th:if="${session.user}==null">
                     <button class="btn btn-success marginTop btn-lg" data-toggle="modal" data-target="#registerLogin">注册/登录</button>
                 </li>
+                <li class="loginAndReg" th:if="${session.user}!=null" th:text="|欢迎,${session.user.username}|" style="font-size: 19px;margin-top: 22px;color:forestgreen;">
+                    <button class="btn btn-success marginTop btn-lg" data-toggle="modal" data-target="#registerLogin">注册/登录</button>
+                </li>
+                <li th:if="${msg}!=null" style="color: red;margin-top: 22px;font-size: 19px">
+                <span th:text="${msg}"></span>
+                </li>
             </ul>
         </div>
     </div>
@@ -179,9 +185,8 @@
                     <div class="text-center" th:if="${session.user!=null}">
                         <!--                        <img th:src="@{/static/images/author-image3.jpg}" class="img-circle avatar"-->
                         <!--                                                  width="60px">-->
-                        <img th:src="|/pic/avatar/${session.user.avatar}|" alt="" width="60px"
-                             class="img-circle avatar"
-                             id="avatar">
+                        <img th:src="|/pic/avatar/${session.user.avatar}|" alt="" width="60px" height="60px"
+                             class="img-circle avatar" id="avatar">
                     </div>
                     <div th:if="${session.user!=null}">
                         <input id="fullName" type="text" name="full_name" class="form-control"
@@ -220,11 +225,11 @@
                     </h2>
                 </div>
             </div>
-            <tr th:each="teacher:${teacherlist}">
+            <tr th:each="teacher:${session.teacherlist}">
                 <div class="col-md-3 col-sm-6">
                 <div class="team-thumb">
                     <div class="team-image">
-                        <img th:src="|/pic/${teacher.avatar}|" class="img-responsive" alt="">
+                        <a th:href="@{/teacherinfo(tid=${teacher.id})}"><img th:src="|/pic/${teacher.avatar}|" class="img-responsive" alt=""></a>
                     </div>
                     <div class="team-info">
                         <h3 th:text="${teacher.tname}">Mark Wilson</h3>
@@ -257,7 +262,7 @@
                 </div>
                 <div class="owl-carousel owl-theme owl-courses">
 
-                    <tr th:each="course:${courselist}">
+                    <tr th:each="course:${session.courselist}">
                         <div class="col-md-4 col-sm-4">
                             <div class="item">
                                 <div class="courses-thumb">
@@ -477,7 +482,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-success">登录</button>
+                        <button type="submit" class="btn btn-success" onclick="loginCheck()">登录</button>
                     </div>
                     </form>
                 </div>
@@ -621,17 +626,15 @@
 <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
 
 <script th:inline="javascript">
-    $(function () {
+    /*function loginCheck() {
         var user = [[${session.user}]];
-        if (user != null) {
-            // $("#user_email").val(user.email);
-            // $("#fullName").val(user.username);
-           /* $("#avatar").attr("src", "/pic/avatar/" + user.avatar);*/
-            $("#form-submit-info").attr("name", user.id);
+        if(user!=null){
+            alert("登录成功！");
+            /!*window.location.href=getRootPath();*!/
         }else {
-            alert("登录失败，请重新登录!");
+            alert("登录失败!")
         }
-    });
+    }*/
 
     //go info 去个人信息页面前先判断
     $(function () {

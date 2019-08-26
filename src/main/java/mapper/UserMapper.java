@@ -1,5 +1,6 @@
 package mapper;
 
+import entity.Course;
 import entity.User;
 
 import java.util.List;
@@ -29,4 +30,9 @@ public interface UserMapper {
 
     //修改头像，更新pic
     int updateAvatar(User user);
+
+    //查询我的课程
+    List<Course> selectMyCourses(Integer id);
+    //查询我的收藏
+    List<Course> selectMyCollects(Integer id);
 }

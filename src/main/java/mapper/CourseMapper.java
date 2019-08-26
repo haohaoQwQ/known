@@ -13,4 +13,9 @@ public interface CourseMapper {
     List<Course> findCourseByStatus();
     //查询所有课程
     List<Course> findAllCourses();
+    //根据tid查询老师教的所有课程
+    List<Course> findCoursesByTid(Integer tid);
+    //查询该老师总共教了多少门课
+    int countCoursesByTid(Integer tid);
+
 }

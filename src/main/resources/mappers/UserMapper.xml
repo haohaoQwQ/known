@@ -47,10 +47,22 @@
     </select>
 
     <select id="findUserInfoByUsername" resultType="user">
-        select username,sex,age,address,avatar,study_direction,phone,email,motto,account from user where username=#{username}
+        select id,username,sex,age,address,avatar,study_direction,phone,email,motto,account from user where username=#{username}
     </select>
 
     <update id="updateAvatar" parameterType="user">
         update user set avatar=#{avatar} where username=#{username}
     </update>
+
+    <select id="selectMyCourses" resultType="course">
+        select * from course where id in(select course_id from user_buy_course where user_id=#{id})
+    </select>
+
+    <select id="selectMyCollects" resultType="course">
+        select * from course where id in(select course_id from user_collect_course where user_id=#{id})
+    </select>
+
+    <insert id="userFocusTeacher">
+        insert user_teacher(user_id,teacher_id) values(#{uid},#{tid})
+    </insert>
 </mapper>

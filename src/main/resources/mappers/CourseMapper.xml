@@ -10,4 +10,12 @@
     <select id="findAllCourses" resultType="course">
         select * from course
     </select>
+
+    <select id="findCoursesByTid" resultType="course" parameterType="int">
+        select * from course where tid=#{tid}
+    </select>
+
+    <select id="countCoursesByTid" resultType="int">
+        select count(*) from course where tid=#{tid}
+    </select>
 </mapper>
