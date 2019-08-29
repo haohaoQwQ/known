@@ -19,7 +19,11 @@
 	<!--导航栏css-->
 	<link rel="stylesheet" th:href="@{/static/css/templatemo-style.css}">
 	<link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
-	
+<style>
+	#focus_btn:hover{
+		color: red;
+	}
+</style>
 </head>
 
 <body>
@@ -59,8 +63,14 @@
 					</div>
 					<p class="tea-nickname" th:text="${session.teacher.tname}">刘梦昊_Haoge</p>
 					<p class="tea-professional" th:text="${session.teacher.major}">Web前端工程师</p>
-                        <a href="javascript:focus();" class="moco-btn payattention-btn js-payattention-btn js-add-attention" data-id="102093">
-						<i class="icon-group_add"></i>关注Ta</a>
+                        <a href="javascript:focus();" class="moco-btn payattention-btn js-payattention-btn js-add-attention"
+						   data-id="102093" th:if="${session.isfocus!=null}">
+						<i class="icon-group_add"></i><span id="focus_btn" th:text="${session.isfocus}">关注Ta</span>
+						</a>
+						<a href="javascript:focus();" class="moco-btn payattention-btn js-payattention-btn js-add-attention"
+						   data-id="102093" th:if="${session.isfocus==null}">
+							<i class="icon-group_add"></i><span id="focus_btn">关注Ta</span>
+						</a>
 					<p class="tea-desc" th:text="${session.teacher.introduction}">资深UI 前端 架构，互联网行业折腾10余年，前后端开发、敏捷过程、项目管理经验丰富，负责过多个产品和技术团队，一直奋斗在Full Stack的道路上，爱技术，爱创业，爱一切新事物，玩过乐队，喜欢折腾！</p>					<div class="tea-detail-box">
 						<ul class="clearfix">
 							<li>
@@ -91,11 +101,13 @@
 				<ul>
                     <tr th:each="course:${session.teachercourses}">
 					<li class="moco-course-wrap">                                     
-                        <a href="">
+                        <a th:href="@{/courseDisplay(cid=${course.id})}">
 	                        <div class="moco-course-box">
 	                            <img alt="测试克隆慕课网" th:src="|/pic/course/${course.pic}|" height="124" width="100%">
 	                            <div class="moco-course-intro">
-	                                <h3><i>中级</i><span th:text="${course.cname}">FullPage.js全屏滚动插件</span></h3>
+	                                <h3><i th:text="${course.level}">中级</i>
+										<span th:text="${course.cname}">FullPage.js全屏滚动插件</span>
+									</h3>
 	                                <p th:text="${course.introduction}">fullPage.js 是一个基于 jQuery 的插件，它能够很方便、很轻松的制作出全屏网站。如今我们经常能见到全屏网站，在手机上也经常能看到一些活动页面。这些网站用几幅很大的图片或色块做背景，再添加一些简单的内容，通过滚动或者滑动来翻页，显得格外的高端大气上档次。</p>
 	                            </div>
 	                            <div class="moco-course-bottom"><span class="l"> 44600人在学</span></div>
@@ -141,16 +153,48 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" th:src="@{/static/js/jquery.js}"></script>
 <script th:inline="javascript">
+	//得到项目根路径
+	function getRootPath() {
+		var pathName = window.location.pathname.substring(1);
+		var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));
+		return window.location.protocol + '//' + window.location.host + '/' + webName + '/';
+	}
+
+	//关注老师
     function focus() {
         var user = [[${session.user}]];
         if(user==null){
-            alert("你还未登录，请先登录后在关注该老师！");
+            alert("您还未登录，请先去主页登录后再关注该老师！");
             window.location.href=getRootPath();
         }else {
-            window.location.href=getRootPath+"focusTeacher";
+			//发送Ajax请求关注老师
+			$.ajax({
+				url:getRootPath()+"focusTeacher",
+				type:"POST",
+				success:function(result){
+					if(result.code == 100){
+						alert("取消关注成功！");
+						$("#focus_btn").text("关注ta");
+					}else{
+						alert("关注成功！");
+						$("#focus_btn").text("已关注");
+					}
+				}
+			});
         }
-    }
+    };
+
+	/*$(document).ready(function () {
+		$("#focus_btn").mouseenter(function () {
+			$("#focus_btn").text("取消关注");
+		});
+		$("#focus_btn").mouseout(function () {
+			$("#focus_btn").text("关注ta");
+		});
+	});*/
 </script>
 </body>
 </html>

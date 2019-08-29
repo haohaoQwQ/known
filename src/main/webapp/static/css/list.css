@@ -1,11 +1,11 @@
 /*课程图片span样式*/
 .courses-date span{
-    margin-left:5px;
+    margin-left:-3px;
 }
 
 /* 主体部分 */
 .container {
-    width: 70%;
+    width: 73%;
 }
 
 /* 游戏信息部分 */

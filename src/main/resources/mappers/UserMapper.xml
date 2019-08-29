@@ -62,7 +62,23 @@
         select * from course where id in(select course_id from user_collect_course where user_id=#{id})
     </select>
 
+    <select id="isCollectCourse" resultType="Integer">
+        select id from user_collect_course where user_id=#{uid} and course_id=#{cid}
+    </select>
+    <insert id="userCollectCourse">
+        insert user_collect_course(user_id,course_id) values(#{uid},#{cid})
+    </insert>
+    <delete id="delCollectCourse">
+        delete from user_collect_course where user_id=#{uid} and course_id=#{cid}
+    </delete>
+
+    <select id="isFocusTeacher" resultType="Integer">
+        select id from user_teacher where user_id=#{uid} and teacher_id=#{tid}
+    </select>
     <insert id="userFocusTeacher">
         insert user_teacher(user_id,teacher_id) values(#{uid},#{tid})
     </insert>
+    <delete id="delFocusTeacher">
+        delete from user_teacher where user_id=#{uid} and teacher_id=#{tid}
+    </delete>
 </mapper>

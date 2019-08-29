@@ -35,4 +35,18 @@ public interface UserService {
     List<Course> selectMyCourses(Integer id);
     //查询我的收藏
     List<Course> selectMyCollects(Integer id);
+
+    //用户是否收藏该课程
+    Integer isCollectCourse(Integer uid,Integer cid);
+    //用户收藏课程
+    int userCollectCourse(Integer uid,Integer cid);
+    //用户取消收藏课程
+    int delCollectCourse(Integer uid,Integer cid);
+
+    //是否已经关注该老师
+    int isFocusTeacher(Integer uid,Integer tid);
+    //关注老师
+    int userFocusTeacher(Integer uid,Integer tid);
+    //取消关注该老师
+    int delFocusTeacher(Integer uid,Integer tid);
 }

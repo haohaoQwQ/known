@@ -10,8 +10,7 @@
     <link rel="stylesheet" th:href="@{/static/css/font-awesome.min.css}">
     <link rel="stylesheet" th:href="@{/static/css/owl.carousel.css}">
     <link rel="stylesheet" th:href="@{/static/css/owl.theme.default.min.css}">
-
-
+    <link rel="stylesheet" th:href="@{/static/css/course.css}">
     <!-- MAIN CSS -->
     <link rel="stylesheet" th:href="@{/static/css/templatemo-style.css}">
     <link rel="stylesheet" th:href="@{/static/css/list.css}">
@@ -19,7 +18,7 @@
 
 <body>
 <!-- MENU -->
-<section class="navbar custom-navbar navbar-fixed-top" role="navigation" style="height: 75px">
+<section class="navbar custom-navbar navbar-fixed-top" role="navigation">
     <div class="container">
 
         <div class="navbar-header">
@@ -28,20 +27,20 @@
                 <span class="icon icon-bar"></span>
                 <span class="icon icon-bar"></span>
             </button>
-
             <!-- lOGO TEXT HERE -->
-            <a th:href="@{/}" class="navbar-brand"><img th:src="|/pic/png/logoko.png|" width="80px"
-                                                           alt=""></a>
+            <a th:href="@{/}" class="navbar-brand"><img th:src="@{/static/images/png/logoko.png}" width="80px" alt=""></a>
         </div>
-
         <!-- MENU LINKS -->
-  <!--      <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a th:href="@{/info}"><img th:src="|/pic/avatar/${session.user.avatar}|"
-                                               class="img-circle avatar" width="55px" height="55px"></a>
+                <li th:if="${session.user}==null">
+                    <a th:href="@{/}">登录/注册</a>
+                </li>
+                <li id="cover" th:if="${session.user}!=null"><a th:href="@{/info}"><img th:src="|/pic/avatar/${session.user.avatar}|"
+                        class="img-circle avatar" width="38px" height="38px"></a>
                 </li>
             </ul>
-        </div>-->
+        </div>
 
     </div>
 </section>
@@ -52,86 +51,99 @@
     <div class="gamelist">
         <table class="table table-light top">
             <tr class="levels">
-                <td class="a" style="font-size: 30px">全部课程</td>
+                <td class="a" style="font-size: 25px;">全部课程</td>
             </tr>
             <tr class="levels">
                 <td>
-                    <ul class="nav nav-pills">
-                        <li class="level">内容分类:</li>
-                        <li class="level">
-                            <span class="label-active">全部</span></li>
-                        <li class="level"><span>IT</span></li>
-                        <li class="level"><span>音乐</span></li>
-                        <li class="level"><span>篮球</span></li>
-                        <li class="level"><span>学龄教育</span></li>
-                    </ul>
-                </td>
-            </tr>
-            <tr class="levels">
-                <td>
-                    <ul class="nav nav-pills">
-                        <li class="level">讲师分类:</li>
-                        <li class="level"><span class="label-active">全部</span></li>
-                        <li class="level"><span>Mike</span></li>
-                        <li class="level"><span>Mary</span></li>
-                        <li class="level"><span>Peter</span></li>
-                        <li class="level"><span>Jeet</span></li>
-
-                    </ul>
-                </td>
-            </tr>
-            <div class="b">
-                <tr class="genders">
-                    <td>
-                        <ul class="nav nav-pills">
-                            <li class="gender"><span>关注度</span></li>
-                            <li class="gender"><span>最新</span></li>
-                            <li class="gender"><span>价格</span></li>
+                    <div>
+                        <ul class="nav nav-pills content courseClass">
+                            <li name="0">内容分类：</li>
+                            <li name="0">全部</li>
+                            <li name="1">学习</li>
+                            <li name="2">音乐</li>
+                            <li name="3">运动</li>
                         </ul>
-                    </td>
-                </tr>
-            </div>
+                    </div>
+                </td>
+            </tr>
+            <!--<tr class="levels">
+                <td>
+                    <div>
+                        <span class="contentClass">导师分类：</span>
+                        <ul class="nav nav-pills content teacherClass">
+                            <li name="0">全部</li>
+                            <li name="1">Stephen Curry</li>
+                            <li name="2">许嵩</li>
+                            <li name="3">Peter</li>
+                            <li name="4">Jack</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>-->
+            <tr class="levels">
+                <td>
+                    <div>
+                        <ul class="nav nav-pills content condition">
+                            <li name="0">筛选条件：</li>
+                            <li name="0">综合</li>
+                            <li name="1">关注度</li>
+                            <li name="2">最新</li>
+                           <!-- <li name="3">价格</li>
+                            <li name="4">销量</li>
+                            <li name="5">免费</li>-->
+                        </ul>
+                    </div>
+                </td>
+            </tr>
         </table>
     </div>
 
-    <tr th:each="course:${session.courselist}">
-    <div class="col-md-4 col-sm-4">
-        <div class="item">
-            <div class="courses-thumb">
-                <div class="courses-top">
-                    <div class="courses-image">
-                        <img th:src="|/pic/course/${course.pic}|" class="img-responsive" alt="">
+
+    <div id="courseContent">
+        <div class="col-md-4 col-sm-4 marginBottom" th:each="course:${session.courselist}">
+            <div class="item">
+                <div class="courses-thumb">
+                    <div class="courses-top">
+                        <div class="courses-image">
+                            <a th:href="@{/courseDisplay(cid=${course.id})}">
+                            <img th:src="|/pic/course/${course.pic}|" class="img-responsive" alt="">
+                            </a>
+                        </div>
+                        <div class="courses-date">
+                            <span><i class="fa fa-calendar"><span th:text="${course.startTime}"> 12 / 7 / 2018</span></i></span>
+                            <span><i class="fa fa-clock-o"><span th:text="|${course.time} Hours|"> 7 Hours</span></i></span>
+                            <span><i class="fa fa-heart-o"><span th:text="${course.focus}"> 66</span></i></span>
+                        </div>
                     </div>
-                    <div class="courses-date">
-                        <span><i class="fa fa-calendar"><span th:text="${course.startTime}">20/7/2018</span></i></span>
-                        <span><i class="fa fa-clock-o"><span th:text="|${course.time} Hours|"> 4.5 Hours</span></i></span>
+                    <div class="courses-detail">
+                        <a th:href="@{/courseDisplay(cid=${course.id})}">
+                            <h3 th:text="${course.cname}">Social Media Management</h3>
+                        </a>
+                        <p th:text="${course.introduction}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </div>
-                </div>
-                <div class="courses-detail">
-                    <h3 th:text="${course.cname}"><a href="#">Graphic & Web Design</a></h3>
-                    <p th:text="${course.introduction}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="courses-info">
-                    <div class="courses-author">
-                        <img th:src="|/pic/${course.teacher.avatar}|" class="img-responsive" alt="">
-                        <span th:text="${course.teacher.tname}">Jessica</span>
-                    </div>
-                    <div class="courses-price">
-                        <a href="#"><span th:text="￥+${course.price}">￥ 80</span></a>
+                    <div class="courses-info">
+                        <div class="courses-author">
+                            <a th:href="@{/teacherInfo(${course.teacher.id})}">
+                            <img th:src="|/pic/${course.teacher.avatar}|" class="img-responsive" alt="">
+                            </a>
+                            <a th:href="@{/teacherInfo(${course.teacher.id})}">
+                            <span th:text="${course.teacher.tname}">Mark Wilson</span>
+                            </a>
+                        </div>
+                        <!--<div class="courses-price">
+                            <a href=""><span th:text="${course.price}">USD 25</span></a>
+                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </tr>
-
 </div>
 
 <!-- FOOTER -->
 <footer id="footer">
     <div class="container">
         <div class="row">
-
             <div class="col-md-4 col-sm-6">
                 <div class="footer-info">
                     <div class="section-title">
@@ -148,8 +160,8 @@
                     </ul>
 
                     <div class="copyright-text">
-                        <p>Copyright &copy; 2018.Company name All rights reserved.<a target="_blank"
-                                                                                     href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+                        <p>Copyright &copy; 2018.Company name All rights reserved.
+                            <a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
                         </p>
                     </div>
                 </div>
@@ -162,7 +174,7 @@
                     </div>
                     <address>
                         <p>+65 2244 1100, +66 1800 1100</p>
-                        <p><a href="mailto:youremail.com">hello@youremail.co</a></p>
+                        <p><a href="">hello@youremail.co</a></p>
                     </address>
 
                     <div class="footer_menu">
@@ -195,7 +207,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </footer>
@@ -203,4 +214,5 @@
 
 <script th:src="@{/static/js/jquery.js}"></script>
 <script th:src="@{/static/js/course.js}"></script>
+
 </body>

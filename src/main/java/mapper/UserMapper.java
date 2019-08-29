@@ -2,6 +2,7 @@ package mapper;
 
 import entity.Course;
 import entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -35,4 +36,18 @@ public interface UserMapper {
     List<Course> selectMyCourses(Integer id);
     //查询我的收藏
     List<Course> selectMyCollects(Integer id);
+    //用户是否收藏该课程
+    Integer isCollectCourse(@Param("uid") Integer uid,@Param("cid") Integer cid);
+    //用户收藏课程
+    int userCollectCourse(@Param("uid") Integer uid,@Param("cid") Integer cid);
+    //用户取消收藏课程
+    int delCollectCourse(@Param("uid") Integer uid,@Param("cid") Integer cid);
+
+    //用户是否已经关注该老师
+    Integer isFocusTeacher(@Param("uid") Integer uid,@Param("tid") Integer tid);
+    //用户关注该老师
+    int userFocusTeacher(@Param("uid") Integer uid, @Param("tid") Integer tid);
+    //用户取消关注该老师
+    int delFocusTeacher(@Param("uid") Integer uid, @Param("tid") Integer tid);
+
 }

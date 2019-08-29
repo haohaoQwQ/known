@@ -68,7 +68,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
     @Override
     public User findUserInfoByUsername(String username) {
         return userMapper.findUserInfoByUsername(username);
@@ -99,6 +98,44 @@ public class UserServiceImpl implements UserService {
             course.setTeacher(teacher);
         }
         return courses;
+    }
+
+    @Override
+    public Integer isCollectCourse(Integer uid, Integer cid) {
+        Integer id=userMapper.isCollectCourse(uid, cid);
+        if(id==null){
+            return -1;
+        }
+        return id;
+    }
+
+    @Override
+    public int userCollectCourse(Integer uid, Integer cid) {
+        return userMapper.userCollectCourse(uid, cid);
+    }
+
+    @Override
+    public int delCollectCourse(Integer uid, Integer cid) {
+        return userMapper.delCollectCourse(uid, cid);
+    }
+
+    @Override
+    public int isFocusTeacher(Integer uid, Integer tid) {
+        Integer id = userMapper.isFocusTeacher(uid, tid);
+        if (id==null){
+            return -1;
+        }
+        return id;
+    }
+
+    @Override
+    public int userFocusTeacher(Integer uid, Integer tid) {
+        return userMapper.userFocusTeacher(uid, tid);
+    }
+
+    @Override
+    public int delFocusTeacher(Integer uid, Integer tid) {
+        return userMapper.delFocusTeacher(uid, tid);
     }
 
 

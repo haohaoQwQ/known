@@ -229,16 +229,18 @@
                 <div class="col-md-3 col-sm-6">
                 <div class="team-thumb">
                     <div class="team-image">
-                        <a th:href="@{/teacherinfo(tid=${teacher.id})}"><img th:src="|/pic/${teacher.avatar}|" class="img-responsive" alt=""></a>
+                        <a th:href="@{/teacherInfo(tid=${teacher.id})}">
+                            <img th:src="|/pic/${teacher.avatar}|" class="img-responsive" alt=""></a>
                     </div>
                     <div class="team-info">
-                        <h3 th:text="${teacher.tname}">Mark Wilson</h3>
+                        <a th:href="@{/teacherInfo(tid=${teacher.id})}">
+                            <h3 th:text="${teacher.tname}">Mark Wilson</h3></a>
                         <span th:text="${teacher.introduction}">I love Teaching</span>
                     </div>
                     <ul class="social-icon">
-                        <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                        <li><a href="#" class="fa fa-twitter"></a></li>
-                        <li><a href="#" class="fa fa-instagram"></a></li>
+                        <li><a  class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                        <li><a  class="fa fa-twitter"></a></li>
+                        <li><a  class="fa fa-instagram"></a></li>
                     </ul>
                 </div>
                 </div>
@@ -268,7 +270,7 @@
                                 <div class="courses-thumb">
                                     <div class="courses-top">
                                         <div class="courses-image">
-                                            <img th:src="|/pic/course/${course.pic}|" class="img-responsive" alt="">
+                                            <a th:href="@{/courseDisplay(cid=${course.id})}"><img th:src="|/pic/course/${course.pic}|" class="img-responsive" alt=""></a>
                                         </div>
                                         <div class="courses-date">
                                             <span><i class="fa fa-calendar"><span th:text="${course.startTime}">20/7/2018</span></i></span>
@@ -276,17 +278,22 @@
                                         </div>
                                     </div>
                                     <div class="courses-detail">
-                                        <h3 th:text="${course.cname}"><a href="#">Graphic & Web Design</a></h3>
+                                        <a th:href="@{/courseDisplay(cid=${course.id})}"><h3 th:text="${course.cname}">Graphic & Web Design</h3></a>
                                         <p th:text="${course.introduction}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                     </div>
                                     <div class="courses-info">
                                         <div class="courses-author">
-                                            <img th:src="|/pic/${course.teacher.avatar}|" class="img-responsive" alt="">
-                                            <span th:text="${course.teacher.tname}">Jessica</span>
+                                            <a th:href="@{/teacherInfo(tid=${course.teacher.id})}">
+                                                <img th:src="|/pic/${course.teacher.avatar}|" class="img-responsive" alt=""></a>
+                                            <a th:href="@{/teacherInfo(tid=${course.teacher.id})}">
+                                                <span th:text="${course.teacher.tname}">Jessica</span></a>
                                         </div>
-                                        <div class="courses-price">
+                                        <!--<div class="courses-price" th:if="${course.isfress}==0">
                                             <a href="#"><span th:text="￥+${course.price}">￥ 80</span></a>
                                         </div>
+                                        <div class="courses-price" th:if="${course.isfress}==1">
+                                            <a href="#"><span>free</span></a>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -449,7 +456,6 @@
                 </h4>
             </div>
             <div class="tab-content">
-
                 <div role="tabpanel" class="tab-pane active" id="userLoginModel">
                     <form class="form-horizontal" id="user_form" th:action="@{/login}" type="post">
                     <div class="modal-body">
@@ -510,7 +516,7 @@
                                     <select class="form-control" name="studyDirection">
                                         <option value="IT">IT</option>
                                         <option value="音乐">音乐</option>
-                                        <option value="篮球">篮球</option>
+                                        <option value="运动">运动</option>
                                         <option value="学龄教育">学龄教育</option>
                                     </select>
                                 </div>
@@ -626,16 +632,6 @@
 <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
 
 <script th:inline="javascript">
-    /*function loginCheck() {
-        var user = [[${session.user}]];
-        if(user!=null){
-            alert("登录成功！");
-            /!*window.location.href=getRootPath();*!/
-        }else {
-            alert("登录失败!")
-        }
-    }*/
-
     //go info 去个人信息页面前先判断
     $(function () {
         var user = [[${session.user}]];

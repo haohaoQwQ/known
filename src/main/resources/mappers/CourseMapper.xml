@@ -18,4 +18,33 @@
     <select id="countCoursesByTid" resultType="int">
         select count(*) from course where tid=#{tid}
     </select>
+
+    <select id="findCourseByCid" resultType="course">
+        select * from course where id=#{cid}
+    </select>
+
+    <select id="findChaptersByCid" resultType="chapter">
+        select * from chapter where course_id=#{cid}
+    </select>
+    <select id="findVideosById" resultType="video">
+        select * from video where chapter_id=#{id}
+    </select>
+    <select id="findVideoByVid" resultType="video">
+        select * from video where id=#{vid};
+    </select>
+
+    <select id="findChapterIdByVid" resultType="int">
+        select chapter_id from video where id=#{vid}
+    </select>
+    <select id="findChapterById" resultType="chapter">
+        select * from chapter where id=#{id}
+    </select>
+
+    <select id="findCourseIdByChapterId" resultType="int">
+        select course_id from chapter where id=#{chapterId}
+    </select>
+
+    <select id="findRelatedCourses" resultType="course">
+        select * from course where direction=#{direction};
+    </select>
 </mapper>

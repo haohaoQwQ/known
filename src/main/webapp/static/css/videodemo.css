@@ -57,7 +57,7 @@ p {
     font-weight: 300;
 }
 #videoContainer { 
-	height: 30em;
+	height:480px;
 	background: none;
 	margin: 0 auto;
 	-webkit-border-radius: 5px;
@@ -70,14 +70,14 @@ p {
 	-o-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 	-ms-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 	position: relative;
 	overflow: hidden;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
 	width:1000px;
-	margin-left:-150px;
+	margin-left:-130px;
 }
 
 #videoContainer.fullScreen {
@@ -175,7 +175,7 @@ p {
 #videoContainer #controls {
 	width: 100%;
 	height: 60px;
-	background:#00e0fd;
+	background:#76efef;
 	position: absolute;
 	right: 0;
 	bottom: 0;

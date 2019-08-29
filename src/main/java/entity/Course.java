@@ -1,13 +1,16 @@
 package entity;
 
+import java.util.List;
+
 /**
  * @author 刘梦昊 2019/8/22 16:04
  */
 public class Course {
+    private Integer id;
     private String cname;
-    private String video;
-    private String chapter;
-    private Integer directionId;
+    private String level;
+    private List<Chapter> chapters;
+    private String direction;
     private Integer isfress;
     private double price;
     private String pic;
@@ -22,10 +25,11 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "cname='" + cname + '\'' +
-                ", video='" + video + '\'' +
-                ", chapter='" + chapter + '\'' +
-                ", directionId=" + directionId +
+                "id=" + id +
+                ", cname='" + cname + '\'' +
+                ", level='" + level + '\'' +
+                ", chapters=" + chapters +
+                ", direction='" + direction + '\'' +
                 ", isfress=" + isfress +
                 ", price=" + price +
                 ", pic='" + pic + '\'' +
@@ -35,7 +39,32 @@ public class Course {
                 ", startTime='" + startTime + '\'' +
                 ", time='" + time + '\'' +
                 ", introduction='" + introduction + '\'' +
+                ", teacher=" + teacher +
                 '}';
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Teacher getTeacher() {
@@ -54,28 +83,13 @@ public class Course {
         this.cname = cname;
     }
 
-    public String getVideo() {
-        return video;
+
+    public String getDirection() {
+        return direction;
     }
 
-    public void setVideo(String video) {
-        this.video = video;
-    }
-
-    public String getChapter() {
-        return chapter;
-    }
-
-    public void setChapter(String chapter) {
-        this.chapter = chapter;
-    }
-
-    public Integer getDirectionId() {
-        return directionId;
-    }
-
-    public void setDirectionId(Integer directionId) {
-        this.directionId = directionId;
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public Integer getIsfress() {

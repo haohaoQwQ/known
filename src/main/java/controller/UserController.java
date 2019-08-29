@@ -14,7 +14,6 @@ import service.CourseService;
 import service.TeacherService;
 import service.UserService;
 import util.Msg;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -72,15 +71,9 @@ public class UserController {
     @RequestMapping("/exitLogin")
     public String exitLogin(HttpSession session){
         session.removeAttribute("user");
+        session.removeAttribute("isfocus");
         System.out.println("退出登录");
         return "index";
-    }
-
-    @RequestMapping("/allcourses")
-    public String allCoureses(HttpSession session){
-        List<Course> courses=courseService.findAllCourses();
-        session.setAttribute("courselist", courses);
-        return "course";
     }
 
     @RequestMapping("/info")
@@ -102,26 +95,6 @@ public class UserController {
             System.out.println("修改用户信息失败！");
             return "info";
         }
-    }
-
-    @RequestMapping("/teacherinfo")
-    public String teacherinfo(Integer tid,HttpSession session){
-        Teacher teacher=teacherService.findTeacherById(tid);
-        session.setAttribute("teacher", teacher);
-        List<Course> courses=courseService.findCoursesByTid(teacher.getId());
-        session.setAttribute("teachercourses", courses);
-        int coursetotal=courseService.countCoursesByTid(teacher.getId());
-        session.setAttribute("coursetotal", coursetotal);
-        int teacherfans=teacherService.countUsersByTid(teacher.getId());
-        session.setAttribute("teacherfans", teacherfans);
-        return "teacherInfo";
-    }
-
-    @RequestMapping("/focusTeacher")
-    public String focusTeacher(HttpSession session){
-        User user= (User) session.getAttribute("user");
-        Teacher teacher= (Teacher) session.getAttribute("teacher");
-        return "teacherinfo";
     }
 
 }
