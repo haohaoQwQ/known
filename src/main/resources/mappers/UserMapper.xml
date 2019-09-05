@@ -12,10 +12,6 @@
         select * from user
     </select>
 
-    <delete id="deleteUserById">
-        delete from user where id=#{id}
-    </delete>
-
     <update id="updateUser" parameterType="user">
         update user
         <set>
@@ -38,8 +34,60 @@
         where username=#{username}
     </update>
 
-    <insert id="saveUser">
-        insert into user(username,password,study_direction,sex,email,phone) values(#{username},#{password},#{studyDirection},#{sex},#{email},#{phone})
+    <insert id="saveUser" parameterType="user">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="isAdmin!=null">
+                isAdmin,
+            </if>
+            <if test="username!=null">
+                username,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="sex!=null">
+                sex,
+            </if>
+            <if test="address!=null">
+                address,
+            </if>
+            <if test="studyDirection!=null">
+                study_direction,
+            </if>
+            <if test="phone!=null">
+                phone,
+            </if>
+            <if test="email!=null">
+                email
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="isAdmin!=null">
+                #{isAdmin},
+            </if>
+            <if test="username!=null">
+                #{username},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="sex!=null">
+                #{sex},
+            </if>
+            <if test="address!=null">
+                #{address},
+            </if>
+            <if test="studyDirection!=null">
+                #{studyDirection},
+            </if>
+            <if test="phone!=null">
+                #{phone},
+            </if>
+            <if test="email!=null">
+                #{email}
+            </if>
+        </trim>
     </insert>
 
     <select id="loginUser" parameterType="user" resultType="Integer">
@@ -47,7 +95,7 @@
     </select>
 
     <select id="findUserInfoByUsername" resultType="user">
-        select id,username,sex,age,address,avatar,study_direction,phone,email,motto,account from user where username=#{username}
+        select id,isAdmin,username,sex,age,address,avatar,study_direction,phone,email,motto,account from user where username=#{username}
     </select>
 
     <update id="updateAvatar" parameterType="user">

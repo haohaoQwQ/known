@@ -30,4 +30,29 @@ public class TeacherServiceImpl implements TeacherService {
     public int countUsersByTid(Integer tid) {
         return teacherMapper.countUsersByTid(tid);
     }
+
+    @Override
+    public List<Teacher> getAllTeachers() {
+        return teacherMapper.getAllTeachers();
+    }
+
+    @Override
+    public int saveTeacher(Teacher teacher) {
+        return teacherMapper.saveTeacher(teacher);
+    }
+
+    @Override
+    public int updateTeacherInfo(Teacher teacher) {
+        return teacherMapper.updateTeacherInfo(teacher);
+    }
+
+    @Override
+    public int deleteTeacherById(Integer id) {
+        return teacherMapper.deleteTeacherById(id);
+    }
+
+    @Override
+    public int batchDeleteTeacher(List<Integer> ids) {
+        return teacherMapper.batchDeleteTeacher(ids);
+    }
 }

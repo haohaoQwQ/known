@@ -9,7 +9,7 @@ function getRootPath() {
 $("#register_btn").click(function () {
     //发送Ajax请求注册用户
     var root=getRootPath();
-    console.log($("#userRegisterModel form").serialize());
+    alert($("#userRegisterModel form").serialize());
     $.ajax({
         url:root+"register",
         type:"POST",

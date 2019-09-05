@@ -6,6 +6,7 @@ package entity;
 public class Video {
     private Integer id;
     private String videoName;
+    private String videoPath;
     private Integer chapterId;
 
     @Override
@@ -15,6 +16,14 @@ public class Video {
                 ", videoName='" + videoName + '\'' +
                 ", chapterId=" + chapterId +
                 '}';
+    }
+
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
     }
 
     public Integer getId() {

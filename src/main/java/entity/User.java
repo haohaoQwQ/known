@@ -5,6 +5,7 @@ package entity;
  */
 public class User {
     private Integer id;
+    private Integer isAdmin;
     private String username;
     private String password;
     private String sex;
@@ -20,7 +21,9 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "id=" + id +
+                ", isAdmin=" + isAdmin +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", sex='" + sex + '\'' +
                 ", age=" + age +
@@ -30,7 +33,16 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", motto='" + motto + '\'' +
+                ", account=" + account +
                 '}';
+    }
+
+    public Integer getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Integer isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public Integer getId() {

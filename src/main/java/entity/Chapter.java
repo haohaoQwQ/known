@@ -8,6 +8,7 @@ import java.util.List;
 public class Chapter {
     private Integer id;
     private String chapterName;
+    private String chapterPath;
     private Integer courseId;
     private List<Video> videos;
 
@@ -19,6 +20,14 @@ public class Chapter {
                 ", courseId=" + courseId +
                 ", videos=" + videos +
                 '}';
+    }
+
+    public String getChapterPath() {
+        return chapterPath;
+    }
+
+    public void setChapterPath(String chapterPath) {
+        this.chapterPath = chapterPath;
     }
 
     public List<Video> getVideos() {

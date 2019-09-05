@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>admin</title>
+		<link rel="stylesheet" th:href="@{/static/admin/css/bootstrap.css}">
+		<script type="text/javascript" th:src="@{/static/admin/js/jquery-3.4.1.js}"></script>
+		<script type="text/javascript" th:src="@{/static/admin/js/bootstrap.js}"></script>
+		<link rel="stylesheet" th:href="@{/static/admin/css/admin.css}">
+		
+	</head>
+	<script>
+		$(function() {
+			$(".left_navbar .nav_item").on("click", function() {
+				$(this).addClass("left_active").siblings(".nav_item").removeClass("left_active");
+			});
+			$(".left_navbar .nav-item").mouseenter(function() {
+				$(this).find("a").css("background-color", "#F2F6F9").siblings().css("background-color", 				"").parent().siblings().css("background-color", "")
+			}).mouseleave(function() {
+				$(this).find("a").css("background-color", "");
+			});
+			$(".btn").click(function() {
+				//    console.log($(".nav_item .font").toggle().parents(".left_navbar"))
+				$(".nav_item .font").toggle().parents(".left_navbar").toggleClass("short");
+				$(".main .item").toggleClass("long")
+			})
+		});
+	</script>
+
+	<body>
+
+		<!-- 顶部导航 -->
+		<nav class="navbar navbar-default navbar-top" role="navigation">
+			<span>
+				<a class="navbar-brand" href="#">
+					<img th:src="|/pic/icon/logoko_white.png|" style="width: 140px;height: 115px;">
+				</a>
+			</span>
+			<div class="button">
+				<button class="btn" type="button">
+					<span class="glyphicon glyphicon-align-justify"aria-hidden="true"></span>
+				</button>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li style="margin-top: -6px;margin-right: -27px;">
+					<a href="#">
+						<!--<span style="display: inline-block;line-height: 70px; color: #ABAFC1" th:text="${session.admin.username}">admin</span>-->
+						<div class="img" style="float: right;margin: 10px;">
+							<img th:src="|/pic/avatar/${session.admin.avatar}|" width="50px" style="border-radius:50%;height: 66px;width:65px;">
+						</div>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/adminExitLogin}" style="padding-top: 40px;margin-right: 40px;"><span>退出</span></a>
+				</li>
+			</ul>
+		</nav>
+		<!-- 主体内容 -->
+		<div class="main">
+			<div class="row " style="margin-right: -25px;">
+				<div class="left_navbar  col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<div class="nav_list" id="left_navbar">
+						<ul class="nav  nav-stacked">
+							<li class="nav_item">
+								<a th:href="@{/userManagement}" target="item-page">
+									<span class="glyphicon glyphicon-user" aria-hidden="true">
+                            </span><span class="font">&emsp;用户管理</span></a>
+							</li>
+							
+							<li class="nav_item">
+								<a th:href="@{teacherManagement}" target="item-page">
+									<span class="glyphicon glyphicon-flag" aria-hidden="true">
+                            </span><span class="font">&emsp;老师管理</span></a>
+							</li>
+							
+							
+							<li class="nav_item">
+								<a th:href="@{courseManagement}" target="item-page">
+									<span class="glyphicon glyphicon-log-in" aria-hidden="true">
+                            </span><span class="font">&emsp;课程管理</span></a>
+							</li>
+							
+							<li class="nav_item">
+								<a href="videoManagement.html" target="item-page">
+									<span class="glyphicon glyphicon-log-in" aria-hidden="true">
+                            </span><span class="font">&emsp;视频管理</span></a>
+							</li>
+							
+							<li class="nav_item">
+								<a href="commentManagement.html" target="item-page">
+									<span class="glyphicon glyphicon-flag" aria-hidden="true">
+                            </span><span class="font">&emsp;评论管理</span></a>
+							</li>
+							
+							<li class="nav_item">
+								<a href="orderManagement.html" target="item-page">
+									<span class="glyphicon glyphicon-list-alt" aria-hidden="true">
+                            </span><span class="font">&emsp;订单管理</span></a>
+							</li>
+							
+							<li class="nav_item">
+								<a href="rechargeManagement.html" target="item-page">
+									<span class="glyphicon glyphicon-usd" aria-hidden="true">
+                            </span><span class="font">&emsp;充值管理</span></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 item">
+					<div class="iframe">
+						<iframe th:src="@{/userManagement}" frameborder="0" name="item-page">
+
+                        </iframe>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+</html>

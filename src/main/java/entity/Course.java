@@ -8,6 +8,7 @@ import java.util.List;
 public class Course {
     private Integer id;
     private String cname;
+    private String coursePath;
     private String level;
     private List<Chapter> chapters;
     private String direction;
@@ -43,36 +44,12 @@ public class Course {
                 '}';
     }
 
-    public List<Chapter> getChapters() {
-        return chapters;
-    }
-
-    public void setChapters(List<Chapter> chapters) {
-        this.chapters = chapters;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
     }
 
     public String getCname() {
@@ -83,6 +60,29 @@ public class Course {
         this.cname = cname;
     }
 
+    public String getCoursePath() {
+        return coursePath;
+    }
+
+    public void setCoursePath(String coursePath) {
+        this.coursePath = coursePath;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
 
     public String getDirection() {
         return direction;
@@ -162,5 +162,13 @@ public class Course {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

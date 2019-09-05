@@ -14,4 +14,46 @@
     <select id="countUsersByTid" resultType="int">
         select count(*) from user_teacher where teacher_id=#{tid}
     </select>
+
+    <select id="getAllTeachers" resultType="teacher">
+        select * from teacher
+    </select>
+
+    <insert id="saveTeacher" parameterType="teacher">
+        insert into teacher(tname,sex,age,major,introduction)
+                    values(#{tname},#{sex},#{age},#{major},#{introduction})
+    </insert>
+
+    <update id="updateTeacherInfo" parameterType="teacher">
+        update teacher
+        <set>
+            <if test="tname!=null">
+                tname=#{tname},
+            </if>
+            <if test="sex!=null">
+                sex=#{sex},
+            </if>
+            <if test="age!=null">
+                age=#{age},
+            </if>
+            <if test="major!=null">
+                major=#{major},
+            </if>
+            <if test="introduction!=null">
+                introduction=#{introduction}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteTeacherById">
+        delete from teacher where id=#{id}
+    </delete>
+
+    <delete id="batchDeleteTeacher" parameterType="list">
+        delete from teacher
+        <foreach collection="ids" item="id" separator="," open="where id in(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

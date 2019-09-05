@@ -24,17 +24,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Integer id) {
-        return null;
+        return userMapper.getUserById(id);
     }
 
     @Override
     public List<User> getUsers() {
         return userMapper.getUsers();
-    }
-
-    @Override
-    public int deleteUserById(Integer id) {
-        return 0;
     }
 
     @Override

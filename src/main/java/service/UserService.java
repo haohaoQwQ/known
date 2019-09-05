@@ -14,8 +14,6 @@ public interface UserService {
     User getUserById(Integer id);
     // 查询所有用户信息
     List<User> getUsers();
-    // 删除用户
-    int deleteUserById(Integer id);
     // 修改
     int updateUser(User user);
 

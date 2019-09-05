@@ -54,9 +54,17 @@ public class UserController {
         if(userService.loginUser(user)){
            if(userService.checkCode(session, checkCode)){
                User user1=userService.findUserInfoByUsername(user.getUsername());
-               session.setAttribute("user", user1);
-               System.out.println("登录成功");
-               return "index";
+               if(user1.getIsAdmin()==1){
+                    List<User> users=userService.getUsers();
+                    session.setAttribute("admin", user1);
+                    session.setAttribute("userlist", users);
+                   return "admin/admin";
+               }else {
+                   session.setAttribute("user", user1);
+                   System.out.println("登录成功");
+                   return "index";
+               }
+
            }else {
                request.setAttribute("msg", "验证码输入有误！");
                return "index";
@@ -96,5 +104,7 @@ public class UserController {
             return "info";
         }
     }
+
+
 
 }
