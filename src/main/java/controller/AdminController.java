@@ -116,14 +116,37 @@ public class AdminController {
 
     @RequestMapping("/teacherManagement")
     public String teacherManagement(){
-
         return "admin/teacherManagement";
     }
 
     @RequestMapping("/courseManagement")
     public String courseManagement(){
-
         return "admin/courseManagement";
+    }
+
+    @RequestMapping("/chapterManagement")
+    public String chapterManagement(){
+        return "admin/chapterManagement";
+    }
+
+    @RequestMapping("/videoManagement")
+    public String videoManagement(){
+        return "admin/videoManagement";
+    }
+
+    @RequestMapping("/commentManagement")
+    public String commentManagement(){
+        return "admin/commentManagement";
+    }
+
+    @RequestMapping("/orderManagement")
+    public String orderManagement(){
+        return "admin/orderManagement";
+    }
+
+    @RequestMapping("/rechargeManagement")
+    public String rechargeManagement(){
+        return "admin/rechargeManagement";
     }
 
 }

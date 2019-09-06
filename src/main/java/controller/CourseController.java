@@ -14,6 +14,7 @@ import service.UserService;
 import util.Msg;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,6 +105,60 @@ public class CourseController {
         // 封装了详细的分页信息,包括有我们查询出来的数据，传入连续显示的页数
         PageInfo page = new PageInfo(courses, 3);
         return  Msg.success().add("pageInfo03",page);
+    }
+
+    @RequestMapping("/addCourse")
+    @ResponseBody
+    public Msg addCourse(Course course){
+        if(courseService.addCourse(course)>0){
+            return Msg.success();
+        }else {
+            return Msg.fail();
+        }
+    }
+    @RequestMapping("/getCourseInfo")
+    @ResponseBody
+    public Msg getCourseInfo(Integer id){
+        Course course=courseService.findCourseByCid(id);
+        if(course!=null){
+            return Msg.success().add("course", course);
+        }else {
+            return Msg.fail();
+        }
+    }
+
+    @RequestMapping("/updateCourseInfo")
+    @ResponseBody
+    public Msg updateCourseInfo(Course course){
+        if(courseService.updateCourseInfo(course)>0){
+            return Msg.success();
+        }else {
+            return Msg.fail();
+        }
+    }
+
+    @RequestMapping("/deleteCourse")
+    @ResponseBody
+    public Msg deleteCourse(Integer id){
+        if(courseService.deleteCourse(id)>0){
+            return Msg.success();
+        }else {
+            return Msg.fail();
+        }
+    }
+
+    @RequestMapping("/batchDeleteCourse")
+    @ResponseBody
+    public Msg batchDeleteCourse(String ids){
+        //批量删除
+        List<Integer> del_ids = new ArrayList<>();
+        String[] str_ids = ids.split("-");
+        //组装id的集合
+        for (String string : str_ids) {
+            del_ids.add(Integer.parseInt(string));
+        }
+        courseService.batchDeleteCourse(del_ids);
+        return  Msg.success();
     }
 
 }

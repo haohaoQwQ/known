@@ -23,6 +23,26 @@ public class CourseServiceImpl implements CourseService {
     TeacherMapper teacherMapper;
 
     @Override
+    public int addCourse(Course course) {
+        return courseMapper.addCourse(course);
+    }
+
+    @Override
+    public int updateCourseInfo(Course course) {
+        return courseMapper.updateCourseInfo(course);
+    }
+
+    @Override
+    public int deleteCourse(Integer id) {
+        return courseMapper.deleteCourse(id);
+    }
+
+    @Override
+    public int batchDeleteCourse(List<Integer> ids) {
+        return courseMapper.batchDeleteCourse(ids);
+    }
+
+    @Override
     public List<Course> findCourseByStatus() {
         List<Course> courses=courseMapper.findCourseByStatus();
         //遍历课程集合，找到课程对应的老师，章节，进行赋值

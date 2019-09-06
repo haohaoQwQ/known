@@ -4,6 +4,7 @@ import entity.Chapter;
 import entity.Course;
 import entity.Teacher;
 import entity.Video;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,6 +12,15 @@ import java.util.List;
  * @author 刘梦昊 2019/8/22 16:04
  */
 public interface CourseMapper {
+    //添加课程
+    int addCourse(Course course);
+    //更新课程信息
+    int updateCourseInfo(Course course);
+    //删除课程
+    int deleteCourse(Integer id);
+    //批量删除课程
+    int batchDeleteCourse(@Param("ids") List<Integer> ids);
+
     //查询推荐课程
     List<Course> findCourseByStatus();
     //查询所有课程

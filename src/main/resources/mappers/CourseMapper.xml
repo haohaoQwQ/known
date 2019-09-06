@@ -3,6 +3,54 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.CourseMapper">
+    <insert id="addCourse" parameterType="course">
+    insert into course(cname,direction,level,pic,course_status,tid,start_time,time,introduction)
+                values(#{cname},#{direction},#{level},#{pic},#{courseStatus},#{tid},#{startTime},#{time},#{introduction})
+    </insert>
+    <update id="updateCourseInfo" parameterType="course">
+        update course
+        <set>
+            <if test="cname!=null">
+                cname=#{cname},
+            </if>
+            <if test="direction!=null">
+                direction=#{direction},
+            </if>
+            <if test="level!=null">
+                level=#{level},
+            </if>
+            <if test="pic!=null">
+                pic=#{pic},
+            </if>
+            <if test="courseStatus!=null">
+                course_status=#{courseStatus},
+            </if>
+            <if test="tid!=null">
+                tid=#{tid},
+            </if>
+            <if test="startTime!=null">
+                start_time=#{startTime},
+            </if>
+            <if test="time!=null">
+                time=#{time},
+            </if>
+            <if test="introduction!=null">
+                introduction=#{introduction}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteCourse">
+        delete from course where id=#{id}
+    </delete>
+    <delete id="batchDeleteCourse" parameterType="list">
+        delete from course
+        <foreach collection="ids" item="id" separator="," open="where id in(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
     <select id="findCourseByStatus" resultType="course">
         select * from course where course_status=1
     </select>
