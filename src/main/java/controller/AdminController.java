@@ -47,6 +47,7 @@ public class AdminController {
     public String userManagement(){
         return "admin/userManagement";
     }
+
     @RequestMapping("/getUsers")
     @ResponseBody
     public Msg getUsers(@RequestParam(value = "pn", defaultValue = "1") Integer pn){

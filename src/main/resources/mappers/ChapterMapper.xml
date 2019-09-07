@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ChapterMapper">
+    <select id="getChaptersByCourseId" resultType="chapter">
+        select * from chapter where course_id=#{id}
+    </select>
+
+    <insert id="addChapter" parameterType="chapter">
+        insert into chapter(chapter_name,course_id) values(#{chapterName},#{courseId})
+    </insert>
+
+    <delete id="deleteChapterById">
+        delete from chapter where id=#{id}
+    </delete>
+
+    <update id="updateChapterInfo" parameterType="chapter">
+        update chapter
+        set chapter_name=#{chapterName},course_id=#{courseId}
+        where id=#{id}
+    </update>
+
+    <delete id="batchDeleteChapter" parameterType="list">
+        delete from chapter
+        <foreach collection="ids" item="id" separator="," open="where id in(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

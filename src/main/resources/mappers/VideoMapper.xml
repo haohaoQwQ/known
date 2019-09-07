@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.VideoMapper">
+    <select id="getVideosByChapterId" resultType="video">
+        select * from video where chapter_id=#{id}
+    </select>
+
+    <insert id="addVideo" parameterType="video">
+        insert into video(video_name,chapter_id) values(#{videoName},#{chapterId})
+    </insert>
+
+    <delete id="deleteVideoById">
+        delete from video where id=#{id}
+    </delete>
+
+    <update id="updateVideoInfo" parameterType="video">
+        update video
+        set video_name=#{videoName},chapter_id=#{chapterId}
+        where id=#{id}
+    </update>
+
+    <delete id="batchDeleteVideo" parameterType="list">
+        delete from video
+        <foreach collection="ids" item="id" separator="," open="where id in(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
