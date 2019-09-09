@@ -38,7 +38,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-nav-first">
                 <li><a href="#top" class="smoothScroll">Home</a></li>
-                <li><a href="#about" class="smoothScroll">About</a></li>
+                <li><a href="#about" class="smoothScroll">Info</a></li>
                 <li><a href="#team" class="smoothScroll">Our Teachers</a></li>
                 <li><a href="#courses" class="smoothScroll">Courses</a></li>
                 <li><a href="#testimonial" class="smoothScroll">Reviews</a></li>
@@ -49,8 +49,10 @@
                 <li class="loginAndReg" th:if="${session.user}==null">
                     <button class="btn btn-success marginTop btn-lg" data-toggle="modal" data-target="#registerLogin">注册/登录</button>
                 </li>
-                <li class="loginAndReg" th:if="${session.user}!=null" th:text="|欢迎,${session.user.username}|" style="font-size: 19px;margin-top: 22px;color:forestgreen;">
-                    <button class="btn btn-success marginTop btn-lg" data-toggle="modal" data-target="#registerLogin">注册/登录</button>
+                <li id="cover" th:if="${session.user}!=null">
+                    <a th:href="@{/info}">
+                        <img th:src="|/pic/avatar/${session.user.avatar}|" class="img-circle avatar" width="45px" height="40px">
+                    </a>
                 </li>
                 <li th:if="${msg}!=null" style="color: red;margin-top: 22px;font-size: 19px">
                 <span th:text="${msg}"></span>
@@ -107,44 +109,6 @@
     </div>
 </section>
 
-
-<!-- FEATURE -->
-<section id="feature">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-4 col-sm-4">
-                <div class="feature-thumb">
-                    <span>01</span>
-                    <h3>Trending Courses</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing eiusmod tempor incididunt ut labore et dolore
-                        magna.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-4">
-                <div class="feature-thumb">
-                    <span>02</span>
-                    <h3>Books & Library</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing eiusmod tempor incididunt ut labore et dolore
-                        magna.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-4">
-                <div class="feature-thumb">
-                    <span>03</span>
-                    <h3>Certified Teachers</h3>
-                    <p>templatemo delivers a wide variety of HTML5 templates for you at absolutely no charge. Please
-                        tell your friends.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
 <!-- ABOUT -->
 <section id="about">
     <div class="container">
@@ -152,7 +116,6 @@
             <div class="col-md-6 col-sm-12">
                 <div class="about-info">
                     <h2>Start your journey to a better life with online practical courses</h2>
-
                     <figure>
                         <span><i class="fa fa-users"></i></span>
                         <figcaption>
@@ -160,7 +123,6 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
                         </figcaption>
                     </figure>
-
                     <figure>
                         <span><i class="fa fa-certificate"></i></span>
                         <figcaption>
@@ -168,7 +130,6 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
                         </figcaption>
                     </figure>
-
                     <figure>
                         <span><i class="fa fa-bar-chart-o"></i></span>
                         <figcaption>
@@ -183,38 +144,28 @@
                 <div class="entry-form">
                     <h2>Information</h2>
                     <div class="text-center" th:if="${session.user!=null}">
-                        <!--                        <img th:src="@{/static/images/author-image3.jpg}" class="img-circle avatar"-->
-                        <!--                                                  width="60px">-->
                         <img th:src="|/pic/avatar/${session.user.avatar}|" alt="" width="60px" height="60px"
                              class="img-circle avatar" id="avatar">
                     </div>
                     <div th:if="${session.user!=null}">
-                        <input id="fullName" type="text" name="full_name" class="form-control"
-                               placeholder="Full name"
-                               required=""
+                        <input id="fullName" type="text" name="full_name" class="form-control" placeholder="username" required=""
                                readonly th:value="${session.user.username}">
-                        <input id="user_email" type="email" name="email" class="form-control"
-                               placeholder="Your email"
+                        <input id="user_email" type="email" name="email" class="form-control" placeholder="Your email"
                                required="" readonly th:value="${session.user.email}">
                     </div>
                     <div th:if="${session.user==null}">
-                        <input type="text" name="full_name" class="form-control"
-                               placeholder="Full name"
-                               required=""
+                        <input type="text" name="full_name" class="form-control" placeholder="Full name" required=""
                                readonly="readonly">
-                        <input type="email" name="email" class="form-control"
-                               placeholder="Your email"
-                               required="" readonly>
+                        <input type="email" name="email" class="form-control" placeholder="Your email" required="" readonly>
                     </div>
                     <button class="submit-btn form-control" id="form-submit-info">go info</button>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
-<!-- TEAM -->
+<!-- Teachers -->
 <section id="team">
     <div class="container">
         <div class="row">
@@ -249,7 +200,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- Courses -->
 <section id="courses">
@@ -306,8 +256,7 @@
     </div>
 </section>
 
-
-<!-- TESTIMONIAL -->
+<!--comments -->
 <section id="testimonial">
     <div class="container">
         <div class="row">
@@ -400,7 +349,6 @@
     </div>
 </section>
 
-
 <!-- CONTACT -->
 <section id="contact">
     <div class="container">
@@ -434,7 +382,6 @@
     </div>
 </section>
 
-
 <!-- 注册登录模态框 -->
 <div class="modal fade" id="registerLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -443,7 +390,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">
                     <div role="tabpanel">
-                        <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active">
                                 <a href="#userLoginModel" aria-controls="login" role="tab" data-toggle="tab">登录</a>
@@ -457,24 +403,24 @@
             </div>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="userLoginModel">
-                    <form class="form-horizontal" id="user_form" th:action="@{/login}" type="post">
+                    <form class="form-horizontal">
                     <div class="modal-body">
                             <div class="form-group">
-                                <label for="new_loginName" class="col-sm-2 control-label">账号</label>
+                                <label for="new_loginName" class="col-sm-2 control-label">用户名:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="new_loginName" placeholder="账号"
+                                    <input type="text" class="form-control" id="new_loginName" placeholder="用户名"
                                            name="username">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="new_loginPwd" class="col-sm-2 control-label">密码</label>
+                                <label for="new_loginPwd" class="col-sm-2 control-label">密码:</label>
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control" id="new_loginPwd" placeholder="密码"
                                            name="password">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="login_code" class="col-sm-2 control-label">验证码</label>
+                                <label for="login_code" class="col-sm-2 control-label">验证码:</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" id="login_code" placeholder="验证码"
                                            name="checkCode">
@@ -488,15 +434,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-success" onclick="loginCheck()">登录</button>
+                        <button type="submit" class="btn btn-success" id="login_btn">登录</button>
                     </div>
                     </form>
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="userRegisterModel">
                     <div class="modal-body">
-
-                        <form class="form-horizontal" id="register_user_form">
+                        <form class="form-horizontal">
                             <div class="form-group">
                                 <label for="register_loginName" class="col-sm-2 control-label">用户名:</label>
                                 <div class="col-sm-8">
@@ -524,12 +469,12 @@
                             <div class="form-group">
                                 <label for="optionsRadios3" class="col-sm-2 control-label">性别:</label>
                                 <div class="col-sm-2">
-                                    <input type="radio" name="sex" id="optionsRadios3" value="男"
-                                           checked> <label for="optionsRadios3" class="control-label">男</label>
+                                    <input type="radio" name="sex" id="optionsRadios3" value="男" checked>
+                                    <label for="optionsRadios3" class="control-label">男</label>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="radio" name="sex" id="optionsRadios4" value="女"
-                                           checked> <label for="optionsRadios4" class="control-label">女</label>
+                                    <input type="radio" name="sex" id="optionsRadios4" value="女" checked>
+                                    <label for="optionsRadios4" class="control-label">女</label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -547,7 +492,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -556,8 +500,8 @@
                 </div>
 
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+        </div>
+    </div>
 </div>
 
 <!-- FOOTER -->
@@ -645,6 +589,5 @@
         });
     });
 </script>
-
 </body>
 </html>

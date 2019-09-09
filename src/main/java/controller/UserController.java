@@ -50,7 +50,8 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public String login(User user, String checkCode, HttpSession session, HttpServletRequest request){
+    @ResponseBody
+    public Msg login(User user, String checkCode, HttpSession session){
         if(userService.loginUser(user)){
            if(userService.checkCode(session, checkCode)){
                User user1=userService.findUserInfoByUsername(user.getUsername());
@@ -58,21 +59,19 @@ public class UserController {
                     List<User> users=userService.getUsers();
                     session.setAttribute("admin", user1);
                     session.setAttribute("userlist", users);
-                   return "admin/admin";
+                   return Msg.admin();
                }else {
                    session.setAttribute("user", user1);
                    System.out.println("登录成功");
-                   return "index";
+                   return Msg.success();
                }
-
            }else {
-               request.setAttribute("msg", "验证码输入有误！");
-               return "index";
+               System.out.println("登录失败,验证码输入有误！");
+               return Msg.checkCodeFail();
            }
         }else {
-            request.setAttribute("msg","用户名或密码错误!");
-            System.out.println("登录失败");
-            return "index";
+            System.out.println("登录失败,用户名或密码错误!");
+            return Msg.fail();
         }
     }
 
@@ -80,7 +79,6 @@ public class UserController {
     public String exitLogin(HttpSession session){
         session.removeAttribute("user");
         session.removeAttribute("isfocus");
-        System.out.println("退出登录");
         return "index";
     }
 

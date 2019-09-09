@@ -8,10 +8,8 @@ function getRootPath() {
 //点击注册用户
 $("#register_btn").click(function () {
     //发送Ajax请求注册用户
-    var root=getRootPath();
-    alert($("#userRegisterModel form").serialize());
     $.ajax({
-        url:root+"register",
+        url:getRootPath()+"register",
         type:"POST",
         data:$("#userRegisterModel form").serialize(),
         success:function(result){
@@ -23,6 +21,36 @@ $("#register_btn").click(function () {
             }else{
                 //显示失败信息
                 alert(result);
+            }
+        }
+    });
+});
+
+//点击登录用户
+$("#login_btn").click(function () {
+    //发送Ajax请求登录用户
+    $.ajax({
+        url:getRootPath()+"login",
+        type:"POST",
+        data:$("#userLoginModel form").serialize(),
+        success:function(result){
+            if(result.code == 100){
+                //1、关闭模态框
+                $("#registerLogin").modal('hide');
+                alert("登录成功！");
+                window.location.href=getRootPath();
+            }
+            if (result.code==1) {
+                //登录后台管理页面
+                window.location.href=getRootPath()+"admin";
+            }
+            if(result.code==200){
+                alert("用户名或密码输入有误!");
+                window.location.href=getRootPath();
+            }
+            if (result.code==201){
+                alert("验证码输入有误！");
+                window.location.href=getRootPath();
             }
         }
     });
