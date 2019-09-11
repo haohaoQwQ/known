@@ -11,8 +11,16 @@ public class Msg {
     private String msg;
 
     //用户要返回给浏览器的数据
+    private Object o;
     private Map<String, Object> extend = new HashMap<String, Object>();
 
+    public Msg(){
+    }
+    public Msg(int code, String msg, Object o) {
+        this.code = code;
+        this.msg = msg;
+        this.o = o;
+    }
     public static Msg success(){
         Msg result = new Msg();
         result.setCode(100);
@@ -44,6 +52,10 @@ public class Msg {
     public Msg add(String key, Object value){
         this.getExtend().put(key, value);
         return this;
+    }
+
+    public static Msg result(int code, String msg, Object o) {
+        return new Msg(code, msg, o);
     }
 
     public int getCode() {

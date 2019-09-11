@@ -55,11 +55,16 @@ public class UserServiceImpl implements UserService {
     public boolean checkCode(HttpSession session, String checkCode) {
         //获取后台随机生成的验证码信息
         String picCode= (String) session.getAttribute("picCode");
-        if(picCode.equalsIgnoreCase(checkCode)){
-            return true;
-        }else {
+        if(checkCode==null){
             return false;
+        }else {
+            if(checkCode.equalsIgnoreCase(picCode)){
+                return true;
+            }else {
+                return false;
+            }
         }
+
 
     }
 

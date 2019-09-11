@@ -39,13 +39,17 @@ public class CourseController {
     @RequestMapping("/courseDisplay")
     public String courseDisplay(Integer cid,HttpSession session){
         Course course=courseService.findCourseByCid(cid);
+        List<Course> courses=courseService.findRelatedCourses(course.getDirection());
         User user= (User) session.getAttribute("user");
         if(user!=null){
             if(userService.isCollectCourse(user.getId(), course.getId())>0){
                 session.setAttribute("isCollect", "yes");
             }
+        }else {
+            session.removeAttribute("isCollect");
         }
         session.setAttribute("course", course);
+        session.setAttribute("relatedCourses", courses);
         return "courseDisplay";
     }
 
@@ -88,6 +92,7 @@ public class CourseController {
         List<Course> courses1=courseService.findRelatedCourses(course.getDirection());
         session.setAttribute("videoPath", videoPath);
         session.setAttribute("video", video);
+        session.setAttribute("videoId", video.getId());
         session.setAttribute("hotcourses", courses);
         session.setAttribute("commendcourses", courses1);
         return "video";

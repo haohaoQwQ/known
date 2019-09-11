@@ -27,6 +27,11 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
+    public Chapter getChapterInfo(Integer id) {
+        return chapterMapper.getChapterInfo(id);
+    }
+
+    @Override
     public int deleteChapterById(Integer id) {
         return chapterMapper.deleteChapterById(id);
     }

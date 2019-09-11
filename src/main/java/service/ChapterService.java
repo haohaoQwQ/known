@@ -13,6 +13,8 @@ public interface ChapterService {
     List<Chapter> getChaptersByCourseId(Integer id);
     //添加章节
     int addChapter(Chapter chapter);
+    //查询章节信息
+    Chapter getChapterInfo(Integer id);
     //删除章节
     int deleteChapterById(Integer id);
     //更新章节

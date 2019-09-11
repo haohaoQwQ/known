@@ -103,15 +103,21 @@
 					<div class="modal-body">
 						<form class="form-horizontal" id="edit_player_form">
 							<div class="form-group">
-								<label for="edit_chapterName" class="col-sm-2 control-label">视频名称:</label>
+								<label for="edit_videoId" class="col-sm-2 control-label">视频id:</label>
 								<div class="col-sm-4">
-									<input type="text" class="form-control" id="edit_chapterName" name="videoName">
+									<input type="text" class="form-control" id="edit_videoId" name="id">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="edit_courseId" class="col-sm-2 control-label">章节id:</label>
+								<label for="edit_videoName" class="col-sm-2 control-label">视频名称:</label>
 								<div class="col-sm-4">
-									<input type="text" class="form-control" id="edit_courseId" name="chapterId">
+									<input type="text" class="form-control" id="edit_videoName" name="videoName">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="edit_chapterId" class="col-sm-2 control-label">章节id:</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="edit_chapterId" name="chapterId">
 								</div>
 							</div>
 						</form>
@@ -140,14 +146,15 @@
 		to_page(1);
 	});
 	function to_page(pn){
+		var chapterId=[[${session.chapterId}]];
 		$.ajax({
-			url:getRootPath()+"getAllTeachers",
+			url:getRootPath()+"getVideos?chapterId="+chapterId,
 			data:"pn="+pn,
 			type:"GET",
 			success:function(result){
 				console.log(result);
 				//1、解析并显示员工数据
-				build_teachers_table(result);
+				build_videos_table(result);
 				//2、解析并显示分页信息
 				build_page_info(result);
 				//3、解析显示分页条数据
@@ -156,38 +163,32 @@
 		});
 	}
 
-	//构建teacherlist
-	function build_teachers_table(result){
+	//构建videolist
+	function build_videos_table(result){
 		//清空table表格
 		$("#video_table tbody").empty();
-		var teachers = result.extend.pageInfo.list;//list<User>users
+		var videos = result.extend.pageInfo.list;//list<User>users
 		//index：下标 item：单个对象
-		$.each(teachers,function(index,teacher){
+		$.each(videos,function(index,video){
 			var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>");
-			var tidTd = $("<td></td>").append(teacher.id);
-			var tnameTd = $("<td></td>").append(teacher.tname);
-			var sexTd = $("<td></td>").append(teacher.sex);
-			var ageTd=$("<td></td>").append(teacher.age);
-			var majorTd=$("<td></td>").append(teacher.major);
-			var introductionTd=$("<td></td>").append(teacher.introduction);
+			var vidTd = $("<td></td>").append(video.id);
+			var videoNameTd = $("<td></td>").append(video.videoName);
+			var chapterIdTd = $("<td></td>").append(video.chapterId);
 
 			var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
 					.append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
 			//为编辑按钮添加一个自定义的属性，来表示当前员工id
-			editBtn.attr("edit-id",teacher.id);
+			editBtn.attr("edit-id",video.id);
 			var delBtn =  $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
 					.append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
 			//为删除按钮添加一个自定义的属性来表示当前删除的员工id
-			delBtn.attr("del-id",teacher.id);
+			delBtn.attr("del-id",video.id);
 			var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
 			//append方法执行完成以后还是返回原来的元素
 			$("<tr></tr>").append(checkBoxTd)
-					.append(tidTd)
-					.append(tnameTd)
-					.append(sexTd)
-					.append(ageTd)
-					.append(majorTd)
-					.append(introductionTd)
+					.append(vidTd)
+					.append(videoNameTd)
+					.append(chapterIdTd)
 					.append(btnTd)
 					.appendTo("#video_table tbody");
 		});
@@ -274,11 +275,11 @@
 			backdrop:"static"
 		});
 	});
-	//点击创建老师。
+	//点击创建视频。
 	$("#addVideo_btn").click(function(){
 		//2、发送ajax请求修改用户
 		$.ajax({
-			url:getRootPath()+"addTeacher",
+			url:getRootPath()+"addVideo",
 			type:"POST",
 			data:$("#addVideoModel form").serialize(),
 			success:function(result){
@@ -304,16 +305,14 @@
 		reset_form("#modifyVideoModel form");
 		var Id = $(this).attr("edit-id");
 		$.ajax({
-			url:getRootPath()+"getTeacherInfo?id="+Id,
+			url:getRootPath()+"getVideoInfo?id="+Id,
 			type:"GET",
 			success:function(result){
 				//填充用户信息到编辑的input框
 				console.log(result);
-				$("#teacherId").val(result.extend.teacher.id);
-				$("#edit_tname").val(result.extend.teacher.tname);
-				$("#edit_age").val(result.extend.teacher.age);
-				$("#edit_major").val(result.extend.teacher.major);
-				$("#edit_introduce").val(result.extend.teacher.introduction);
+				$("#edit_videoId").val(result.extend.video.id);
+				$("#edit_videoName").val(result.extend.video.videoName);
+				$("#edit_chapterId").val(result.extend.video.chapterId);
 			}});
 		//2、弹出模态框
 		$("#modifyVideoModel").modal({
@@ -325,7 +324,7 @@
 	//点击保存修改按钮修改信息
 	$("#modifyVideo_btn").click(function(){
 		$.ajax({
-			url:getRootPath()+"updateTeacherInfo",
+			url:getRootPath()+"updateVideoInfo",
 			type:"POST",
 			data:$("#modifyVideoModel form").serialize(),
 			success:function(result){
@@ -349,14 +348,14 @@
 	//单个删除
 	$(document).on("click",".delete_btn",function(){
 		//1、弹出是否确认删除对话框
-		var tName = $(this).parents("tr").find("td:eq(2)").text();
-		var tid = $(this).attr("del-id");
-		if(confirm("确认删除【"+tName+"】老师吗？")){
+		var Name = $(this).parents("tr").find("td:eq(2)").text();
+		var id = $(this).attr("del-id");
+		if(confirm("确认删除【"+Name+"】视频吗？")){
 			//确认，发送ajax请求删除即可
 			$.ajax({
-				url:getRootPath()+"deleteTeacher",
+				url:getRootPath()+"deleteVideo",
 				type:"POST",
-				data:{"id":tid},
+				data:{"id":id},
 				success:function(result){
 					if(result.code == 100){
 						alert("删除成功!");
@@ -391,7 +390,7 @@
 		if(confirm("确认删除【"+userNames+"】吗？")){
 			//发送ajax请求删除
 			$.ajax({
-				url:getRootPath()+"batchDeleteTeacher?ids="+del_idstr,
+				url:getRootPath()+"batchDeleteVideo?ids="+del_idstr,
 				type:"POST",
 				success:function(result){
 					alert(result.msg);

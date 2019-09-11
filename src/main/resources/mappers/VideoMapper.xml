@@ -11,6 +11,10 @@
         insert into video(video_name,chapter_id) values(#{videoName},#{chapterId})
     </insert>
 
+    <select id="getVideoInfo" resultType="video">
+        select * from video where id=#{id}
+    </select>
+
     <delete id="deleteVideoById">
         delete from video where id=#{id}
     </delete>

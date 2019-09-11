@@ -59,6 +59,7 @@ public class UserController {
                     List<User> users=userService.getUsers();
                     session.setAttribute("admin", user1);
                     session.setAttribute("userlist", users);
+                   System.out.println("管理员登录成功");
                    return Msg.admin();
                }else {
                    session.setAttribute("user", user1);
@@ -79,6 +80,7 @@ public class UserController {
     public String exitLogin(HttpSession session){
         session.removeAttribute("user");
         session.removeAttribute("isfocus");
+        session.removeAttribute("picCode");
         return "index";
     }
 

@@ -60,14 +60,6 @@
         <div id="login-area">
             <!--购物车，头像-->
             <ul class="clearfix logined">
-                <!--<li class="shop-cart" id="shop-cart">
-                    <a href="" class="shop-cart-icon" target="_blank">
-                        <span my-icon="cart01"></span>
-                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0"
-                              style="display: none">0</span>
-                    </a>
-                    <div class="my-cart" id="js-my-cart"></div>
-                </li>-->
                 <li th:if="${session.user}==null" style="font-size: 13px"><a th:href="@{/}" style="text-decoration: none;">登录/注册</a></li>
                 <li class="set_btn user-card-box" id="header-user-card" th:if="${session.user}!=null">
                     <a id="header-avator" class="user-card-item" action-type="my_menu" th:href="@{/info}">
@@ -100,8 +92,7 @@
             <div class="button agileinfo"></div>
         </div>
         <div id="video">
-            <video th:src="|/pic/video/${session.videoPath}|">
-            </video>
+            <video th:src="|/pic/video/${session.videoPath}|" id="videoDis"></video>
             <p>Your user agent does not support this Video element.</p>
         </div>
         <div id="controls">
@@ -355,7 +346,7 @@
 </div>
 
 <!--评论模块-->
-<div class="subcontainer">
+<div class="subcontainer" id="medial">
     <div class="course-subnav js-course-subnav">
         <ul class="clearfix">
             <li data-type="qa" class="" data-index="0">问答</li>
@@ -366,7 +357,7 @@
         <div class="course-left">
             <div id="tabwrap">
                 <!--问答---->
-                <div class="js-tab-item tab-item c-qalist current" data-type="qa" style="display: block;">
+                <div class="js-tab-item tab-item c-qalist current" data-type="qa" style="display: none;">
                     <div class="comp-filter-bar clearfix">
                         <a href="javascript:;" class="moco-change-smalle-btn active" data-t="/t/2">全部</a>
                         <a href="javascript:;" class="moco-change-smalle-btn" data-t="/t/4">精华</a>
@@ -423,59 +414,34 @@
                         </div>
                     </div>
                 </div>
-
                 <!--评论-->
-                <div class="js-tab-item tab-item c-comment" data-type="comment" style="display:none;">
+                <div class="js-tab-item tab-item c-comment" data-type="comment" style="display:block;">
                     <div class="comp-filter-bar clearfix">
                         <a href="javascript:;" class="moco-change-smalle-btn active">全部</a>
                         <span class="js-pub-btn moco-btn moco-btn-gray-l" id="send">我要发布</span>
                     </div>
                     <div id="commentContainer" class="answertabcon">
-                        <div class="course_quescon mod-post">
-                            <div class="wenda-listcon mod-qa-list post-row clearfix" data-id="602734">
-                                <div class="headslider qa-medias l">
-                                    <a href="" class="media" target="_blank" title="Olivlia">
-                                        <img th:src="@{/static/images/avatar08.jpg}" width="40" height="40"></a>
-                                </div>
-                                <div class="wendaslider qa-content">
-                                    <div class="tit">
-                                        <a href="" target="_blank">Olivlia</a>
-                                    </div>
-                                    <div class="cnt">不错，很适合新手入门</div>
-                                    <div class="replymegfooter qa-footer clearfix">
-                                        <div class="l-box l">
-                                            <a title="赞" href="javascript:;"
-                                               class="js-pl-praise moco-btn moco-btn-gray-l" data-id="602734">
-                                                <span my-icon="thumb01"></span><em>2</em></a>
-                                            <a href="javascript:;" data-id="602734" data-type="4" data-uid="7904351"
-                                               class="js-tip-off" data-src="/video/6160">举报</a>
-                                        </div>
-                                        <span class="r timeago">4天前</span></div>
-                                </div>
-                            </div>
+                        <div class="course_quescon mod-post" id="comment">
 
                         </div>
-                    </div>
-                    <div class="paginationwrap">
-                        <div class="pagination"><span class="current prev disabled">首页</span><span
-                                class="current prevclass prev">上一页</span>
-                            <span class="current p_interval">1</span>
-                            <a href="javascript:;" class="p_interval">2</a>
-                            <a href="javascript:;" class="p_interval">3</a>
-                            <span class="p_interval">...</span>
-                            <a href="javascript:;" class="p_interval">27</a>
-                            <a href="javascript:;" class="nextclass next">下一页</a>
-                            <a href="javascript:;" class="prev disabled lastclass">尾页</a>
+
+                        <div class="paginationwrap">
+                        <div class="row">
+                            <!--分页文字信息  -->
+                            <div class="col-md-6" id="page_info_area"></div>
+                            <!-- 分页条信息 -->
+                            <div class="col-md-6" id="page_nav_area">
+                            </div>
                         </div>
+                    </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <div class="course-right clearfix">
             <div id="courseVideoWendalistRight"></div>
-
+            <!--推荐课程-->
             <div class="js-commend-box">
                 <div class="mb40 recom-course-list-box">
                     <h4>推荐课程</h4>
@@ -494,6 +460,7 @@
                     </ul>
                 </div>
             </div>
+            <!--热门专题标签-->
             <div class="js-tag-box">
                 <div class="box mb40 all-attention-box">
                     <h4>热门专题标签</h4>
@@ -504,10 +471,10 @@
                         <a th:href="@{/courseDisplay(cid=4)}" target="_blank" data-id="24" class="blue fs16 bold">Java多线程</a>
                         <a th:href="@{/courseDisplay(cid=5)}" target="_blank" data-id="10" class="lake-blue fs14 normal">JavaScript入门篇</a>
                         <a th:href="@{/courseDisplay(cid=6)}" target="_blank" data-id="28" class="yellow fs18 bold">初识Python</a>
-                        <!--<a th:href="@{/courseDisplay(cid=7)}" target="_blank" data-id="27" class="orange fs20 normal">仿站开发</a>-->
                     </div>
                 </div>
             </div>
+            <!--相关课程-->
             <div class="js-related-box">
                 <div class="mb40 recom-course-list-box">
                     <h4>相关课程</h4>
@@ -529,39 +496,97 @@
             </div>
 
         </div>
+
     </div>
 </div>
 
 
-<!--发布评论-->
+
+<!--发布评论模态框-->
 <div class="modal fade" id="commendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">添加评论</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" id="new_avatar_form">
-                    <div class="form-group">
-                        <div class="col-sm-12 cc-profile-image my-pic">
-                            <label for="new_commend">文本框</label>
-                            <textarea class="form-control" id="new_commend" rows="3"></textarea>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">添加评论</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="new_comment_form">
+                        <div class="form-group">
+                            <div class="col-sm-12 cc-profile-image my-pic">
+                                <label for="new_commend">评论框</label>
+                                <textarea class="form-control" id="new_commend" rows="3" name="content"></textarea>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default modal_close" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-default modal_modify" onclick="avatar()">提交评论</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default modal_close" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-default modal_modify" id="sendComment">提交评论</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
+<!--回复评论模态框-->
+<div class="modal fade" id="commendReplayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel11" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel11"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="replay_comment_form">
+                        <div class="form-group">
+                            <div class="col-sm-12 cc-profile-image my-pic">
+                                <label for="new_commend">回复框</label>
+                                <textarea class="form-control" id="replay_commend" rows="3" name="content"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default modal_close" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-default modal_modify" id="sendReplayComment">提交回复</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
+<!--是否有历史记录模态框-->
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel1">观看记录</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="new_history_form">
+                        <div class="form-group">
+                            <div class="col-sm-12 cc-profile-image my-pic" id="replay">
+                                是否跳转到上次观看位置
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default modal_close" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-default modal_modify" id="localtion">跳转</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!--底部footer-->
 <div id="footer">
     <div class="waper">
         <div class="footerwaper clearfix">
@@ -599,8 +624,72 @@
         </div>
     </div>
 </div>
-</body>
 <script th:src="@{/static/js/jquery.js}"></script>
 <script th:src="@{/static/js/bootstrap.min.js}"></script>
-<script th:src="@{/static/js/video.js}"></script>
+<script th:src="@{/static/js/comment.js}"></script>
+<script>
+    window.onbeforeunload = function () {
+        var time = document.getElementById("videoDis").currentTime;
+        $.ajax({
+            type: "POST",
+            data: {"time": Number(time)},
+            url: `[[${#servletContext.contextPath}]]/recordVideoTime`,
+            async: false
+        });
+    };
+</script>
+
+<script th:inline="javascript">
+    $(function () {
+        $("#send").on('click', function () {
+            var user = [[${session.user}]];
+            if(user==null){
+                alert("您还未登录，请先去主页登录后发表评论！");
+                window.location.href=getRootPath();
+            }else {
+            $("html").animate({scrollTop: $("#medial").offset().top}, 1000);
+            document.getElementById("videoDis").pause();
+            $(".overlay").show();
+            $("#commendModal").modal({
+                backdrop: "static"
+            });
+            }
+        });
+    });
+
+    function removeReplay(obj) {
+        var user = [[${session.user}]];
+        console.log(obj);
+        obj.each(function (index, item) {
+            console.log("第" + (index + 1) + "个评论的id为：" + Number($(this).attr("data-id")));
+            if (Number($(this).attr("data-id")) == user.id) {
+                $(this).hide();
+            }
+        })
+    }
+
+    $(function () {
+        var history = [[${currentTime}]];
+        console.log("history:" + history);
+
+        if (history != null) {
+            $("#historyModal").modal({
+                backdrop: "static"
+            });
+        } else {
+            $(".agileinfo").click();
+            $("#videoDis").attr("autoplay", "autoplay").attr("muted", "muted");
+        }
+
+        $("#localtion").click(function () {
+            $("#historyModal").modal('hide');
+            console.log("执行跳转到" + history);
+            $(".agileinfo").click();
+            $("#videoDis").attr("autoplay", "autoplay").attr("muted", "muted");
+            document.getElementById("videoDis").currentTime = history;
+        })
+    })
+
+</script>
+</body>
 </html>

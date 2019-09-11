@@ -81,44 +81,18 @@
     </div>
     <div class="otherCourse">
         <h3>推荐课程</h3>
-        <ul class="nav nav-stacked recommendCourse">
+        <ul class="nav nav-stacked recommendCourse" th:each="course:${session.relatedCourses}">
             <li>
-                <div class="courseImg"><img th:src="@{/static/images/courses-image1.jpg}" alt="" width="150px"></div>
-                <div class="courseInfo">
-                    <ul class="nav nav-stacked">
-                        <li>课程名称</li>
-                        <li>课程方向</li>
-                        <li>课程价格</li>
-                    </ul>
+                <div class="courseImg">
+                    <a th:href="@{/courseDisplay(cid=${course.id})}">
+                        <img th:src="|/pic/course/${course.pic}|" alt="" width="150px">
+                    </a>
                 </div>
-            </li>
-            <li>
-                <div class="courseImg"><img th:src="@{/static/images/courses-image2.jpg}" alt="" width="150px"></div>
                 <div class="courseInfo">
                     <ul class="nav nav-stacked">
-                        <li>课程名称</li>
-                        <li>课程方向</li>
-                        <li>课程价格</li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="courseImg"><img th:src="@{/static/images/courses-image3.jpg}" alt="" width="150px"></div>
-                <div class="courseInfo">
-                    <ul class="nav nav-stacked">
-                        <li>课程名称</li>
-                        <li>课程方向</li>
-                        <li>课程价格</li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="courseImg"><img th:src="@{/static/images/courses-image4.jpg}" alt="" width="150px"></div>
-                <div class="courseInfo">
-                    <ul class="nav nav-stacked">
-                        <li>课程名称</li>
-                        <li>课程方向</li>
-                        <li>课程价格</li>
+                        <li th:text="${course.cname}">课程名称</li>
+                        <li th:text="${course.direction}">课程方向</li>
+                        <li th:text="${course.introduction}">课程简介</li>
                     </ul>
                 </div>
             </li>

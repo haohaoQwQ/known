@@ -15,6 +15,8 @@ import service.TeacherService;
 import service.UserService;
 import util.Msg;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,5 +45,61 @@ public class ChapterController {
         // 封装了详细的分页信息,包括有我们查询出来的数据，传入连续显示的页数
         PageInfo page = new PageInfo(chapters, 3);
         return  Msg.success().add("pageInfo",page);
+    }
+
+    @RequestMapping("/addChapter")
+    @ResponseBody
+    public Msg addChapter(Chapter chapter, HttpSession session){
+        if(chapterService.addChapter(chapter)>0){
+            return Msg.success();
+        }else {
+            return Msg.fail();
+        }
+    }
+
+    @RequestMapping("/getChapterInfo")
+    @ResponseBody
+    public Msg getChapterInfo(Integer id){
+        Chapter chapter=chapterService.getChapterInfo(id);
+        if(chapter!=null){
+            return Msg.success().add("chapter", chapter);
+        }else {
+            return Msg.fail();
+        }
+    }
+
+    @RequestMapping("/updateChapterInfo")
+    @ResponseBody
+    public Msg updateChapterInfo(Chapter chapter){
+        if(chapterService.updateChapterInfo(chapter)>0){
+            return Msg.success();
+        }else {
+            return Msg.fail();
+        }
+    }
+
+    @RequestMapping("/deleteChapter")
+    @ResponseBody
+    public Msg deleteChapter(Integer id){
+        if(chapterService.deleteChapterById(id)>0){
+            return Msg.success();
+        }else {
+            return Msg.fail();
+        }
+    }
+
+    //批量删除
+    @RequestMapping("/batchDeleteChapter")
+    @ResponseBody
+    public Msg batchDeleteChapter(String ids){
+        //批量删除
+        List<Integer> del_ids = new ArrayList<>();
+        String[] str_ids = ids.split("-");
+        //组装id的集合
+        for (String string : str_ids) {
+            del_ids.add(Integer.parseInt(string));
+        }
+        chapterService.batchDeleteChapter(del_ids);
+        return Msg.success();
     }
 }

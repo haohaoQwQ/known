@@ -13,6 +13,8 @@ public interface VideoService {
     List<Video> getVideosByChapterId(Integer id);
     //添加视频
     int addVideo(Video video);
+    //根据id获取视频信息
+    Video getVideoInfo(Integer id);
     //删除视频
     int deleteVideoById(Integer id);
     //更新视频

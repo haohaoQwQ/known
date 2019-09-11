@@ -2,6 +2,7 @@ package controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import entity.Chapter;
 import entity.User;
 import mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import service.AdminService;
-import service.CourseService;
-import service.TeacherService;
-import service.UserService;
+import service.*;
 import util.Msg;
 
 import javax.servlet.http.HttpSession;
@@ -33,14 +31,18 @@ public class AdminController {
     CourseService courseService;
     @Autowired
     AdminService adminService;
+    @Autowired
+    ChapterService chapterService;
 
     @RequestMapping("/admin")
     public String admin(){
         return "admin/admin";
     }
+
     @RequestMapping("/adminExitLogin")
     public String exit(HttpSession session){
         session.removeAttribute("admin");
+        session.removeAttribute("picCode");
         return "index";
     }
     @RequestMapping("/userManagement")
@@ -126,12 +128,14 @@ public class AdminController {
     }
 
     @RequestMapping("/chapterManagement")
-    public String chapterManagement(){
+    public String chapterManagement(Integer courseId,HttpSession session){
+        session.setAttribute("courseId", courseId);
         return "admin/chapterManagement";
     }
 
     @RequestMapping("/videoManagement")
-    public String videoManagement(){
+    public String videoManagement(Integer chapterId,HttpSession session){
+        session.setAttribute("chapterId", chapterId);
         return "admin/videoManagement";
     }
 
