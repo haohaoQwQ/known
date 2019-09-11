@@ -657,6 +657,27 @@
         });
     });
 
+    //点击弹出回复模态框
+    $("#comment").on("click", ".replay", function () {
+        var user = [[${session.user}]];
+        if(user==null){
+            alert("您还未登录，请先去主页登录后再回复评论！");
+            window.location.href=getRootPath();
+        }else {
+        var answerName = $(this).attr("data-title");
+        var commentId = Number($(this).closest(".parentComment").attr("data-id"));
+        var answerId = Number($(this).attr("data-id"));
+        $("#myModalLabel11").text("回复: " + answerName);
+        $("#myModalLabel11").attr("data-id", answerId).attr("name", commentId);
+        $("html").animate({scrollTop: $("#" + commentId).offset().top}, 1000);
+        document.getElementById("videoDis").pause();
+        $(".overlay").show();
+        $("#commendReplayModal").modal({
+            backdrop: "static"
+        });
+        }
+    });
+
     function removeReplay(obj) {
         var user = [[${session.user}]];
         console.log(obj);
@@ -668,7 +689,8 @@
         })
     }
 
-    $(function () {
+    //播放历史记录
+    /*$(function () {
         var history = [[${currentTime}]];
         console.log("history:" + history);
 
@@ -688,7 +710,7 @@
             $("#videoDis").attr("autoplay", "autoplay").attr("muted", "muted");
             document.getElementById("videoDis").currentTime = history;
         })
-    })
+    })*/
 
 </script>
 </body>

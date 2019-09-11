@@ -27,7 +27,8 @@ $(function () {
         });
     })
 
-    $("#comment").on("click", ".replay", function () {
+    /*$("#comment").on("click", ".replay", function () {
+
         var answerName = $(this).attr("data-title");
         var commentId = Number($(this).closest(".parentComment").attr("data-id"));
         var answerId = Number($(this).attr("data-id"));
@@ -39,7 +40,7 @@ $(function () {
         $("#commendReplayModal").modal({
             backdrop: "static"
         });
-    })
+    })*/
 
     $("#sendReplayComment").click(function () {
         var replayeded = $("#myModalLabel11").attr("data-id");

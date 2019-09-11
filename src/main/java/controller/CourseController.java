@@ -75,6 +75,7 @@ public class CourseController {
         Course course=courseService.findCourseByCid(cid);
         userService.delCollectCourse(user.getId(), course.getId());
         List<Course> courses=userService.selectMyCollects(user.getId());
+        session.removeAttribute("isCollect");
         session.setAttribute("mycollects", courses);
         return "info";
     }
