@@ -11,9 +11,9 @@
 这个项目是基于SSM框架实现的，使用了thymeleaf模板引擎实现前后的分离，还用到了Pagehelper实现的分页功能，js动态拼接实现了评论多层回复功能。数据库使用的mysql,服务器使用的是tomcat，使用了Ajax实现的数据传递，异步刷新。
 ### 4、项目截图
 #### 4.1项目首页
-![index](README-images/index.jpg)
-![index02](README-images/index02.jpg)
-![index03](README-images/index03.jpg)
+![index](https://github.com/1551316289/KnownStudy/blob/master/README-images/index.jpg)
+![index02](https://github.com/1551316289/KnownStudy/blob/master/README-images/index02.jpg)
+![index03](https://github.com/1551316289/KnownStudy/blob/master/README-images/index03.jpg)
 #### 4.2用户登录注册
 ![login](README-images/login.png)
 ![register](README-images/register.png)
