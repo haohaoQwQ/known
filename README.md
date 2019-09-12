@@ -14,6 +14,20 @@
 ![index](README-images/index.jpg)
 ![index02](README-images/index02.jpg)
 ![index03](README-images/index03.jpg)
-#### 登录注册gif
+#### 4.2登录注册gif
 ![login](README-images/login.gif)
-
+![register](README-images/register.gif)
+#### 4.3个人信息gif
+![info](README-images/info.gif)
+#### 4.4老师个人信息gif
+![teacher](README-images/teacher.gif)
+#### 4.5课程页面
+![course](README-images/allcourse.jpg)
+![course02](README-images/courseDisplay.png)
+#### 4.6课程视频播放gif
+![course03](README-images/course.gif)
+#### 4.7视频评论gif
+![comment](README-images/comment.gif)
+#### 4.8管理员后台页面
+![admin](README-images/admin.png)
+![admin02](README-images/admin.gif)
