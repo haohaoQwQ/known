@@ -10,24 +10,28 @@
 ### 3、项目技术
 这个项目是基于SSM框架实现的，使用了thymeleaf模板引擎实现前后的分离，还用到了Pagehelper实现的分页功能，js动态拼接实现了评论多层回复功能。数据库使用的mysql,服务器使用的是tomcat，使用了Ajax实现的数据传递，异步刷新。
 ### 4、项目截图
-#### 4.1首页
+#### 4.1项目首页
 ![index](README-images/index.jpg)
 ![index02](README-images/index02.jpg)
 ![index03](README-images/index03.jpg)
-#### 4.2登录注册
+#### 4.2用户登录注册
 ![login](README-images/login.png)
 ![register](README-images/register.png)
-#### 4.3个人信息gif
-![info](README-images/info.gif)
-#### 4.4老师个人信息gif
-![teacher](README-images/teacher.gif)
-#### 4.5课程页面
+#### 4.3用户个人信息
+![info](README-images/info.jpg)
+#### 4.4老师个人信息
+![teacher01](README-images/teacher01.jpg)
+![teacher02](README-images/teacher02.jpg)
+#### 4.5课程展示页面
 ![course](README-images/allcourse.jpg)
 ![course02](README-images/courseDisplay.png)
-#### 4.6课程视频播放gif
-![course03](README-images/course.gif)
-#### 4.7视频评论gif
-![comment](README-images/comment.gif)
+#### 4.6视频播放页面
+![videoPlay](README-images/videoPlay.jpg)
+#### 4.7视频评论页面
+![comment01](README-images/comment01.png)
+![comment02](README-images/comment02.png)
+![comment03](README-images/comment03.png)
 #### 4.8管理员后台页面
+![admin01](README-images/admin01.png)
 ![admin](README-images/admin.png)
 
