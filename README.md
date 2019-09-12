@@ -21,7 +21,7 @@
 ![info](README-images/info.jpg)
 #### 4.4老师个人信息
 ![teacher01](README-images/teacher01.jpg)
-![teacher02](README-images/teacher02.jpg)
+![teacher02](README-images/teacher02.png)
 #### 4.5课程展示页面
 ![course](README-images/allcourse.jpg)
 ![course02](README-images/courseDisplay.png)
