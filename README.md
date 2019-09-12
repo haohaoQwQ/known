@@ -14,9 +14,9 @@
 ![index](README-images/index.jpg)
 ![index02](README-images/index02.jpg)
 ![index03](README-images/index03.jpg)
-#### 4.2登录注册gif
-![login](README-images/login.gif)
-![register](README-images/register.gif)
+#### 4.2登录注册
+![login](README-images/login.png)
+![register](README-images/register.png)
 #### 4.3个人信息gif
 ![info](README-images/info.gif)
 #### 4.4老师个人信息gif
@@ -30,4 +30,4 @@
 ![comment](README-images/comment.gif)
 #### 4.8管理员后台页面
 ![admin](README-images/admin.png)
-![admin02](README-images/admin.gif)
+
