@@ -16,8 +16,6 @@ public interface UserMapper {
     //查询所有用户信息
     List<User> getUsers();
 
-
-
     //修改用户
     int updateUser(User user);
 
