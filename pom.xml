@@ -43,10 +43,10 @@
                     <artifactId>spring-core</artifactId>
                     <groupId>org.springframework</groupId>
                 </exclusion>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
+<!--                <exclusion>-->
+<!--                    <artifactId>spring-beans</artifactId>-->
+<!--                    <groupId>org.springframework</groupId>-->
+<!--                </exclusion>-->
                 <exclusion>
                     <artifactId>spring-expression</artifactId>
                     <groupId>org.springframework</groupId>
