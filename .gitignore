@@ -1,4 +1,3 @@
 # Project exclude paths
 /target/
-!/KnownStudy.iml
 !/.idea/
