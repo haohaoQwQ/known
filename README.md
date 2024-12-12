@@ -8,7 +8,7 @@
 2.4 评论模块  
 2.5 后台管理模块
 ### 3、项目技术
-这个项目是基于spring + springMvc + mybatis框架实现，使用了thymeleaf模板引擎，Pagehelper分页插件，数据库使用的mysql,服务器使用的是tomcat，js动态拼接实现了评论多层回复功能。
+项目基于spring + springMvc + mybatis框架实现，html, js, jquery, bootstrap, thymeleaf
 ### 4、项目截图
 #### 4.1项目首页
 ![index](README-images/index.jpg)
