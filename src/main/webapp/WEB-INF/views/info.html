@@ -47,7 +47,7 @@
                     <div class="container">
                         <div class="content-center">
                             <div class="cc-profile-image">
-                                <a href="#"><img id="avatarImg" th:src="|/pic/avatar/${session.user.avatar}|" alt="Image"/></a>
+                                <a href="#"><img id="avatarImg" th:src="|/known/upload_images/${session.user.avatar}|" alt="Image"/></a>
                             </div>
                             <div id="username" class="h2 title" th:text="${session.user.username}">Anthony Barnett</div>
                             <p class="category text-white" th:text="${session.user.studyDirection}">Web Developer, Graphic Designer, Photographer</p>

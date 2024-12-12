@@ -39,7 +39,8 @@ public class UpLoadServlet extends HttpServlet {
             System.out.println(picName);
             //将图片存在服务器中
             //1.指明存放的路径
-            String path = "C:\\D\\known\\images\\avatar";
+            String path = "D:\\Github\\known\\upload_images";
+//            String path = "C:\\D\\known\\images\\avatar";
             System.out.println(path);
             User user = (User) request.getSession().getAttribute("user");
             user.setAvatar(picName);
